@@ -69,7 +69,7 @@ public class Code201_RangeBitwiseAnd {
      * @param n
      * @return
      */
-    public int rangeBitwiseAnd(int m, int n) {
+    public int rangeBitwiseAnd3(int m, int n) {
         int shift = 0;
         // 找到公共前缀
         while (m < n) {
