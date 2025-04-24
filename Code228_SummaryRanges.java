@@ -26,7 +26,7 @@ public class Code228_SummaryRanges {
         int r = 1;
         List<String> result = new ArrayList<>();
 
-        while (r <= n ) {
+        while (r <= n) {
             while (r < n && nums[r] - nums[r - 1] == 1) {
                 r++;
             }
