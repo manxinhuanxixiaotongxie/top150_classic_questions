@@ -1,11 +1,11 @@
 class WordDictionary {
-    private Trie root;
+    private CodeTrie root;
 
     /**
      * 前缀树 + dfs
      */
     public WordDictionary() {
-        root = new Trie();
+        root = new CodeTrie();
     }
 
     public void addWord(String word) {
@@ -16,20 +16,20 @@ class WordDictionary {
         return process(word, 0, root);
     }
 
-    private boolean process(String word, int index, Trie node) {
+    private boolean process(String word, int index, CodeTrie node) {
         if (index == word.length()) {
             return node.isEnd();
         }
         char ch = word.charAt(index);
         if (Character.isLetter(ch)) {
             int childIndex = ch - 'a';
-            Trie child = node.getChildren()[childIndex];
+            CodeTrie child = node.getChildren()[childIndex];
             if (child != null && process(word, index + 1, child)) {
                 return true;
             }
         } else {
             for (int i = 0; i < 26; i++) {
-                Trie child = node.getChildren()[i];
+                CodeTrie child = node.getChildren()[i];
                 if (child != null && process(word, index + 1, child)) {
                     return true;
                 }
@@ -40,28 +40,28 @@ class WordDictionary {
 }
 
 class Trie {
-    private Trie[] children;
+    private CodeTrie[] children;
     private boolean isEnd;
 
     public Trie() {
-        children = new Trie[26];
+        children = new CodeTrie[26];
         isEnd = false;
     }
 
     public void insert(String word) {
-        Trie node = this;
+        CodeTrie node = this;
         for (int i = 0; i < word.length(); i++) {
             char ch = word.charAt(i);
             int index = ch - 'a';
             if (node.children[index] == null) {
-                node.children[index] = new Trie();
+                node.children[index] = new CodeTrie();
             }
             node = node.children[index];
         }
         node.isEnd = true;
     }
 
-    public Trie[] getChildren() {
+    public CodeTrie[] getChildren() {
         return children;
     }
 
