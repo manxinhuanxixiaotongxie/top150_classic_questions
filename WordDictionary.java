@@ -1,11 +1,11 @@
 class WordDictionary {
-    private CodeTrie root;
+    private Trie root;
 
     /**
      * 前缀树 + dfs
      */
     public WordDictionary() {
-        root = new CodeTrie();
+        root = new Trie();
     }
 
     public void addWord(String word) {
@@ -16,20 +16,20 @@ class WordDictionary {
         return process(word, 0, root);
     }
 
-    private boolean process(String word, int index, CodeTrie node) {
+    private boolean process(String word, int index, Trie node) {
         if (index == word.length()) {
             return node.isEnd();
         }
         char ch = word.charAt(index);
         if (Character.isLetter(ch)) {
             int childIndex = ch - 'a';
-            CodeTrie child = node.getChildren()[childIndex];
+            Trie child = node.getChildren()[childIndex];
             if (child != null && process(word, index + 1, child)) {
                 return true;
             }
         } else {
             for (int i = 0; i < 26; i++) {
-                CodeTrie child = node.getChildren()[i];
+                Trie child = node.getChildren()[i];
                 if (child != null && process(word, index + 1, child)) {
                     return true;
                 }
@@ -40,28 +40,28 @@ class WordDictionary {
 }
 
 class Trie {
-    private CodeTrie[] children;
+    private Trie[] children;
     private boolean isEnd;
 
     public Trie() {
-        children = new CodeTrie[26];
+        children = new Trie[26];
         isEnd = false;
     }
 
     public void insert(String word) {
-        CodeTrie node = this;
+        Trie node = this;
         for (int i = 0; i < word.length(); i++) {
             char ch = word.charAt(i);
             int index = ch - 'a';
             if (node.children[index] == null) {
-                node.children[index] = new CodeTrie();
+                node.children[index] = new Trie();
             }
             node = node.children[index];
         }
         node.isEnd = true;
     }
 
-    public CodeTrie[] getChildren() {
+    public Trie[] getChildren() {
         return children;
     }
 
