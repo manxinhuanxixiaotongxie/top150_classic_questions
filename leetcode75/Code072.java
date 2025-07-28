@@ -24,10 +24,21 @@ public class Code072 {
             return str1[index1] == str2[index2] ? 0 : 1;
         } else if (index1 == 0) {
             // index2 !=0
-            return str1[index1] == str2[index2] ? process(str1, str2, index1, index2 - 1) : process(str1, str2, index1, index2 - 1) + 1;
+            // 这里应该要计算是不是包含
+            for (int i = index2; i >= 0; i--) {
+                if (str1[index1] == str2[i]) {
+                    return index2;
+                }
+            }
+            return index2 + 1;
         } else if (index2 == 0) {
             // index1 !=0
-            return str1[index1] == str2[index2] ? process(str1, str2, index1 - 1, index2) : process(str1, str2, index1 - 1, index2) + 1;
+            for (int i = index1; i >= 0; i--) {
+                if (str1[i] == str2[index2]) {
+                    return index1;
+                }
+            }
+            return index1 + 1;
         } else {
             // 两者都不为0
             int ans = Integer.MAX_VALUE;
@@ -63,11 +74,36 @@ public class Code072 {
         dp[0][0] = str1[0] == str2[0] ? 0 : 1;
         // 先填写第一行
         for (int j = 1; j < str2.length; j++) {
-            dp[0][j] = str1[0] == str2[j] ? dp[0][j - 1] : dp[0][j - 1] + 1;
+            // index1==0 index2 != 0
+            // dp[0][j]
+            boolean found = false;
+            for (int index2 = 0; index2 <= j; index2++) {
+                if (str1[0] == str2[index2]) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                dp[0][j] = j;
+            } else {
+                dp[0][j] = j + 1;
+            }
         }
         // 先填写第一列
         for (int i = 1; i < str1.length; i++) {
-            dp[i][0] = str1[i] == str2[0] ? dp[i - 1][0] : dp[i - 1][0] + 1;
+            // dp[i][0]
+            boolean found = false;
+            for (int index1 = 0; index1 <= i; index1++) {
+                if (str1[index1] == str2[0]) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                dp[i][0] = i;
+            } else {
+                dp[i][0] = i + 1;
+            }
         }
         // 普遍位置
         for (int index1 = 1; index1 < str1.length; index1++) {
@@ -90,7 +126,7 @@ public class Code072 {
 
     public static void main(String[] args) {
         Code072 code = new Code072();
-        System.out.println(code.minDistance("pneumonoultramicroscopicsilicovolcanoconiosis", "ultramicroscopically"));
-        System.out.println(code.minDistance2("pneumonoultramicroscopicsilicovolcanoconiosis", "ultramicroscopically"));
+        System.out.println(code.minDistance("pneuoscopicsilicovolcanoconiosis", "ultramicroscopically"));
+        System.out.println(code.minDistance2("pneuoscopicsilicovolcanoconiosis", "ultramicroscopically"));
     }
 }
