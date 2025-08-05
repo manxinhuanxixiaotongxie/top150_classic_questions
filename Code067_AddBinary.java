@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Code067_AddBinary {
 
     public String addBinary(String a, String b) {

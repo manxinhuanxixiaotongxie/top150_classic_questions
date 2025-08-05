@@ -1,9 +1,6 @@
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的 字母异位词。
- *
+ * <p>
  * 字母异位词是通过重新排列不同单词或短语的字母而形成的单词或短语，并使用所有原字母一次。
  */
 public class Code242_IsAnagram {
@@ -28,6 +25,6 @@ public class Code242_IsAnagram {
         String s = "anagram";
         String t = "nagaram";
         Code242_IsAnagram code242IsAnagram = new Code242_IsAnagram();
-        System.out.printf(String.valueOf(code242IsAnagram.isAnagram(s,t)));
+        System.out.printf(String.valueOf(code242IsAnagram.isAnagram(s, t)));
     }
 }

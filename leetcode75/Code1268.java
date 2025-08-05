@@ -19,7 +19,7 @@ public class Code1268 {
         List<List<String>> ans = new ArrayList<>();
         char[] searchWordChars = searchWord.toCharArray();
         for (int i = 0; i < searchWordChars.length; i++) {
-            for (int j = 0; i <=i;j++) {
+            for (int j = 0; i <= i; j++) {
                 // 从j 到i
                 Node curNode = trie.root;
 

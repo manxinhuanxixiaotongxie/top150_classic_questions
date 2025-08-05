@@ -14,9 +14,9 @@ public class Code199 {
         queue.add(root);
         while (!queue.isEmpty()) {
             int size = queue.size();
-            for (int i = 0; i < size;i++) {
+            for (int i = 0; i < size; i++) {
                 TreeNode poll = queue.poll();
-                if (i == size-1) {
+                if (i == size - 1) {
                     res.add(poll.val);
                 }
                 if (poll.left != null) {

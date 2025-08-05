@@ -14,9 +14,8 @@ import java.util.TreeSet;
 public class SmallestInfiniteSet {
     /**
      * 思路参考了官解
-     *
+     * <p>
      * 如果使用一个集合或者数组来存储所有结构中存在的数，造成过大的内存的占用
-     *
      */
     private int begin = 0;
     private TreeSet<Integer> set = null;

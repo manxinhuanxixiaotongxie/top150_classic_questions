@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * 有一些球形气球贴在一堵用 XY 平面表示的墙面上。墙面上的气球记录在整数数组 points ，其中points[i] = [xstart, xend]

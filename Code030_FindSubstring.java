@@ -31,7 +31,7 @@ public class Code030_FindSubstring {
         Set<String> wordList = new HashSet<>();
         process(words, 0, wordList);
         for (String word : wordList) {
-            if (s.contains(word)){
+            if (s.contains(word)) {
                 int index = s.indexOf(word);
                 while (index != -1) {
                     res.add(index);
@@ -68,14 +68,12 @@ public class Code030_FindSubstring {
 
     /**
      * 滑动窗口
-     *
+     * <p>
      * 找到一个子串 由于Word的长度都是相同的 因此题目就是在s中找到一个子串
      * 然后将子串拆分成words.length个单词 统计每个的单词出现的次数 以及words中每个单词出现的次数
      * 满足这两者次数相等
-     *
+     * <p>
      * 参考：https://leetcode.cn/problems/substring-with-concatenation-of-all-words/solutions/3691292/30-ci-ding-chang-hua-dong-chuang-kou-pyt-5vgx/?envType=study-plan-v2&envId=top-interview-150
-     *
-     *
      *
      * @param s
      * @param words

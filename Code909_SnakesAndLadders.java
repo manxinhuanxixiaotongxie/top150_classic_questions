@@ -36,4 +36,5 @@ public class Code909_SnakesAndLadders {
             c = n - 1 - c;
         }
         return new int[]{n - 1 - r, c};
-    }}
+    }
+}

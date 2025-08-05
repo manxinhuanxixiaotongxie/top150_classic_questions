@@ -50,7 +50,7 @@ public class Code2462 {
                 pq.offer(new int[]{help[begin], begin});
             }
             // 此时begin来到了candidates位置
-            int next = N - candidates ;
+            int next = N - candidates;
             next = Math.max(begin, next);
             for (int i = next; i < N; i++) {
                 pq.offer(new int[]{help[i], i});

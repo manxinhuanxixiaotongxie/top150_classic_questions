@@ -1,9 +1,5 @@
-import java.util.LinkedList;
-import java.util.Stack;
-
 /**
  * 给定一个已排序的链表的头 head ， 删除原始链表中所有重复数字的节点，只留下不同的数字 。返回 已排序的链表 。
- *
  */
 public class Code082_DeleteDuplicates {
     /**
@@ -25,7 +21,7 @@ public class Code082_DeleteDuplicates {
                 while (cur.next != null && cur.next.val == val) {
                     cur.next = cur.next.next;
                 }
-            }else {
+            } else {
                 cur = cur.next;
             }
         }

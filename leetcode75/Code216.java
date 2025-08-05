@@ -19,7 +19,7 @@ public class Code216 {
             return List.of();
         }
         List<List<Integer>> ans = new ArrayList<>();
-        int[] help = new int[]{1,2, 3, 4, 5, 6, 7, 8, 9};
+        int[] help = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
         process(help, 0, n, k, new ArrayList<>(), ans);
         return ans;
     }
@@ -37,7 +37,7 @@ public class Code216 {
             // 选择的前提剩下的n不能小于当前index位置的数
             if (n >= help[index] && k > 0) {
                 cur.add(help[index]);
-                process(help, index + 1, n- help[index], k - 1, cur, ans);
+                process(help, index + 1, n - help[index], k - 1, cur, ans);
                 cur.remove(cur.size() - 1); // 回溯
             }
         }

@@ -5,10 +5,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
 import static java.nio.charset.StandardCharsets.ISO_8859_1;
 
 
@@ -106,6 +106,7 @@ public class Code1657 {
     /**
      * 使用位运算
      * 更优化的解法
+     *
      * @return
      */
     public boolean closeStrings3(String s, String t) {

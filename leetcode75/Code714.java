@@ -43,10 +43,10 @@ public class Code714 {
             for (int j = 0; j < 2; j++) {
                 if (j == 0) {
                     // false
-                    dp[i][j] = Math.max(dp[i + 1][j], dp[i+1][1] - prices[i]);
-                }else {
+                    dp[i][j] = Math.max(dp[i + 1][j], dp[i + 1][1] - prices[i]);
+                } else {
                     // true
-                    dp[i][j] = Math.max(dp[i + 1][j], dp[i+1][0] + prices[i] - fee);
+                    dp[i][j] = Math.max(dp[i + 1][j], dp[i + 1][0] + prices[i] - fee);
                 }
             }
         }
@@ -69,7 +69,7 @@ public class Code714 {
                 if (j == 0) {
                     // false
                     dp[j] = Math.max(downFalse, dp[j + 1] - prices[i]);
-                }else {
+                } else {
                     // true
                     dp[j] = Math.max(downTrue, downFalse + prices[i] - fee);
                 }

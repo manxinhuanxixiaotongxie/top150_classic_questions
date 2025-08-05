@@ -1,6 +1,5 @@
 package leetcode75;
 
-import java.util.List;
 import java.util.Stack;
 
 /**
@@ -56,7 +55,7 @@ public class Code2130 {
         int start = index >> 1;
         cur = head;
         index = 0;
-        while (index++ < start-1) {
+        while (index++ < start - 1) {
             cur = cur.next;
         }
         // cur就是最后一个位置

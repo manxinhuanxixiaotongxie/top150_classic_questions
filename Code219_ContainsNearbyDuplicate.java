@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -16,7 +15,7 @@ public class Code219_ContainsNearbyDuplicate {
             } else if (map.containsKey(nums[i]) && Math.abs(i - map.get(nums[i])) <= k) {
                 res = true;
                 break;
-            }else {
+            } else {
                 map.put(nums[i], i);
             }
         }

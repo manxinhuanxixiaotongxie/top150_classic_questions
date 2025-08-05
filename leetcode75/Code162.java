@@ -21,8 +21,8 @@ public class Code162 {
         while (left + 1 < right) {
             int mid = left + (right - left) / 2;
             if (nums[mid] > nums[mid + 1]) {
-                right = mid ;
-            }else {
+                right = mid;
+            } else {
                 left = mid;
             }
         }

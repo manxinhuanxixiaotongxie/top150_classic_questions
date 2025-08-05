@@ -30,7 +30,7 @@ public class Code643 {
             if (i < k - 1) {
                 continue;
             }
-            ans = Math.max(ans,  sum * 1.0 / k); // 计算平均数
+            ans = Math.max(ans, sum * 1.0 / k); // 计算平均数
             sum -= nums[i - k + 1]; // 移除窗口左侧的元素
         }
 

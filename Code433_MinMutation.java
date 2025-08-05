@@ -72,4 +72,5 @@ public class Code433_MinMutation {
             step++;
         }
         return -1;
-    }}
+    }
+}
