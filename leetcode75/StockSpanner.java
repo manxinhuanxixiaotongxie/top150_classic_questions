@@ -12,7 +12,7 @@ import java.util.Stack;
 public class StockSpanner {
     Stack<Integer> stack;
     Map<Integer, Integer> map;
-    int index = 0;
+    int index;
 
     public StockSpanner() {
         // 100 80 60 70 60 75 85
@@ -23,13 +23,12 @@ public class StockSpanner {
     }
 
     public int next(int price) {
-        int ans = 1;
+        int ans;
         map.put(index, price);
         while (!stack.isEmpty() && map.get(stack.peek()) <= price) {
-            Integer pop = stack.pop();
-            ans +=1;
+            stack.pop();
         }
-
+        ans = index - (stack.isEmpty() ? -1 : stack.peek());
         stack.push(index++);
         return ans;
     }
