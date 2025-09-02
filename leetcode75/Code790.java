@@ -127,7 +127,9 @@ public class Code790 {
          * f(n-1) = f(n-2) + f(n-3) + 2 * f(n-4) + 2 * f(n-5) + ... + 2 * f(0)
          *
          * f(n) -f(n-1) = f(n-1) + f(n-3)
+         * 因此：对于每一步骤的计算都可以用上一步骤的结果
          * f(n) = 2* f(n-1) + f(n-3)
+         *
          */
 
         /**
@@ -174,6 +176,115 @@ public class Code790 {
         return (int) dp[n];
     }
 
+    /**
+     * 矩阵快速幂
+     */
+    public int numTilings4(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        if (n == 2) {
+            return 2;
+        }
+        long[][] base = {
+                {2, 0, 1},
+                {1, 0, 0},
+                {0, 1, 0}
+        };
+        long[][] fod = {{2}, {1}, {1}}; // f(2), f(1), f(0)
+        long[][] res = matrixMulNum(base, n - 2);
+//        return (int) (res[0][0] * fod[0] % 1000000007 + res[0][1] * fod[1] % 1000000007 + res[0][2] * fod[2] % 1000000007) % 1000000007;、
+        // return (int) matrixMul(fod,res)[0][0];
+        // 这个写法也是错误的 为什么？
+        return (int) matrixMul(res,fod)[0][0];
+    }
+
+    // 数组的N次方
+    public long[][] matrixMulNum(long[][] matrix, int n) {
+        long[][] ans = new long[][]{
+                {1, 0, 0},
+                {0, 1, 0},
+                {0, 0, 1}
+        };
+        long[][] temp = matrix;
+        while (n != 0) {
+            if ((n & 1) != 0) {
+                ans = matrixMul(ans, temp);
+            }
+            temp = matrixMul(temp, temp);
+            n >>= 1;
+        }
+        return ans;
+    }
+
+    public long[][] matrixMul(long[][] martrix1, long[][] matrix2) {
+        // 两个数组相乘
+        long[][] res = new long[martrix1.length][matrix2[0].length];
+        // 行
+        for (int i = 0; i < res.length; i++) {
+            // 列
+            for (int j = 0; j < matrix2[0].length; j++) {
+                // 当前行列的值计算
+                // 当前行
+                for (int k = 0; k < martrix1[0].length; k++) {
+                    //    res[i][j] += martrix1[i][k] * matrix2[k][j] % 1000000007;
+                    // 上面这种写法是错误的 为什么？
+                    // 因为 res[i][j] += martrix1[i][k] * matrix2[k][j] % 1000000007
+                    // 可能会导致 res[i][j] 超过 long 的范围
+                    // 所以要把每一步的结果都对 1000000007 取模
+                    res[i][j] = (res[i][j] +  martrix1[i][k] * matrix2[k][j]) % 1000000007;
+                }
+            }
+        }
+        return res;
+    }
+
+    private static final int MOD = 1_000_000_007;
+
+    public int numTilings5(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        long[][] f2 = {{2}, {1}, {1}};
+        long[][] m = {
+                {2, 0, 1},
+                {1, 0, 0},
+                {0, 1, 0},
+        };
+        long[][] fn = powMul(m, n - 2, f2);
+        return (int) fn[0][0];
+    }
+
+    // a^n * f
+    private long[][] powMul(long[][] a, int n, long[][] f) {
+        long[][] res = f;
+        while (n > 0) {
+            if ((n & 1) > 0) {
+                res = mul(a, res);
+            }
+            a = mul(a, a);
+            n >>= 1;
+        }
+        return res;
+    }
+
+    // 返回矩阵 a 和矩阵 b 相乘的结果
+    private long[][] mul(long[][] a, long[][] b) {
+        long[][] c = new long[a.length][b[0].length];
+        for (int i = 0; i < a.length; i++) {
+            for (int k = 0; k < a[i].length; k++) {
+                if (a[i][k] == 0) {
+                    continue;
+                }
+                for (int j = 0; j < b[k].length; j++) {
+                    c[i][j] = (c[i][j] + a[i][k] * b[k][j]) % MOD;
+                }
+            }
+        }
+        return c;
+    }
+
+
     public static void main(String[] args) {
         Code790 code790 = new Code790();
         System.out.println(code790.numTilings(3)); // 5
@@ -189,5 +300,10 @@ public class Code790 {
         System.out.println(code790.numTilings2(6)); // 53
         System.out.println(code790.numTilings2(7)); // 117
         System.out.println(code790.numTilings2(30)); // 312342182
+
+        System.out.println(code790.numTilings3(3)); // 5
+        System.out.println(code790.numTilings4(3)); // 11
+
+        System.out.println(code790.numTilings5(3)); // 24
     }
 }
