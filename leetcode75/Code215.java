@@ -8,7 +8,8 @@ package leetcode75;
  * 你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。
  */
 public class Code215 {
-    // 题目要求时间复杂度O（N）用堆实现不了
+    // 题目要求时间复杂度O（N）可以实现
+    // 维护一个大小为K的小根堆 时间复杂度是O(N*logK) 其中k 是常数 时间复杂度也是O（N）
     // 改写快排
     public int findKthLargest(int[] nums, int k) {
         return process(nums, 0, nums.length - 1, k - 1);
@@ -18,8 +19,7 @@ public class Code215 {
         if (l >= r) {
             return nums[l];
         }
-        int val = nums[l + (int) (Math.random() * (r - l + 1))];
-        int[] partition = partition(nums, l, r, val);
+        int[] partition = partition(nums, l, r);
         if (k >= partition[0] && k <= partition[1]) {
             return nums[k];
         } else if (k < partition[0]) {
@@ -29,11 +29,13 @@ public class Code215 {
         }
     }
 
-    public int[] partition(int[] nums, int l, int r, int val) {
+    public int[] partition(int[] nums, int l, int r) {
         // 将数组划分成左边大、右边小的结构
         int left = l - 1;
         int right = r + 1;
         int i = l;
+        int index = l + (int) (Math.random() * ( r- l + 1));
+        int val = nums[index];
         while (i < right) {
             if (nums[i] == val) {
                 i++;
