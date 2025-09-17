@@ -59,69 +59,49 @@ public class Code072 {
     }
 
     /**
-     * 改dp  会少算 待分析
+     *
+     * 这个方法是对的
      *
      * @param word1
      * @param word2
      * @return
      */
-    public int minDistance2(String word1, String word2) {
-        char[] str1 = word1.toCharArray();
-        char[] str2 = word2.toCharArray();
+    public int minDistance2(String text1, String text2) {
+        char[] str1 = text1.toCharArray();
+        char[] str2 = text2.toCharArray();
         if (str1.length == 0) return str2.length;
         if (str2.length == 0) return str1.length;
-        int[][] dp = new int[str1.length][str2.length];
+        // 返回将字符串从text1转换成text2需要的最小操作数
+
+        int N1 = str1.length;
+        int N2 = str2.length;
+        int[][] dp = new int[N1][N2];
         dp[0][0] = str1[0] == str2[0] ? 0 : 1;
-        // 先填写第一行
-        for (int j = 1; j < str2.length; j++) {
-            // index1==0 index2 != 0
-            // dp[0][j]
-            boolean found = false;
-            for (int index2 = 0; index2 <= j; index2++) {
-                if (str1[0] == str2[index2]) {
-                    found = true;
-                    break;
-                }
-            }
-            if (found) {
-                dp[0][j] = j;
-            } else {
-                dp[0][j] = j + 1;
-            }
+        // 第一行
+        for (int j = 1; j < N2; j++) {
+            dp[0][j] = str1[0] == str2[j] ? j : dp[0][j - 1] + 1;
         }
-        // 先填写第一列
-        for (int i = 1; i < str1.length; i++) {
-            // dp[i][0]
-            boolean found = false;
-            for (int index1 = 0; index1 <= i; index1++) {
-                if (str1[index1] == str2[0]) {
-                    found = true;
-                    break;
-                }
-            }
-            if (found) {
-                dp[i][0] = i;
-            } else {
-                dp[i][0] = i + 1;
-            }
+        // 第一列
+        for (int i = 1; i < N1; i++) {
+            dp[i][0] = str1[i] == str2[0] ? i
+                    : dp[i - 1][0] + 1;
         }
-        // 普遍位置
+
+        // 从第一行第一列开始计算
         for (int index1 = 1; index1 < str1.length; index1++) {
             for (int index2 = 1; index2 < str2.length; index2++) {
-                dp[index1][index2] = Integer.MAX_VALUE;
+                // 普遍位置填充
                 if (str1[index1] == str2[index2]) {
                     dp[index1][index2] = dp[index1 - 1][index2 - 1];
                 } else {
-                    // 第一种情况 替换
-                    dp[index1][index2] = Math.min(dp[index1][index2], dp[index1 - 1][index2 - 1] + 1);
-                    // 第2种情况 插入str1
+                    // 不相等
+                    dp[index1][index2] = dp[index1 - 1][index2] + 1;
                     dp[index1][index2] = Math.min(dp[index1][index2], dp[index1][index2 - 1] + 1);
-                    // 第3种情况 删除str1
-                    dp[index1][index2] = Math.min(dp[index1][index2], dp[index1 - 1][index2] + 1);
+                    dp[index1][index2] = Math.min(dp[index1][index2], dp[index1 - 1][index2 - 1] + 1);
                 }
             }
         }
-        return dp[str1.length - 1][str2.length - 1];
+        return dp[N1 - 1][N2 - 1];
     }
 
     public static void main(String[] args) {

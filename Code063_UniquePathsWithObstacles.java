@@ -6,7 +6,7 @@
  * <p>
  * 返回机器人能够到达右下角的不同路径数量。
  * <p>
- * 测试用例保证答案小于等于 2 * 109。
+ * 测试用例保证答案小于等于 2 * 10 ^ 9。
  */
 public class Code063_UniquePathsWithObstacles {
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
