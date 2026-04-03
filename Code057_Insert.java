@@ -21,6 +21,13 @@ import java.util.List;
  * 0 <= start <= end <= 10^5
  */
 public class Code057_Insert {
+    /**
+     * 官解
+     *
+     * @param intervals
+     * @param newInterval
+     * @return
+     */
     public int[][] insert(int[][] intervals, int[] newInterval) {
         int left = newInterval[0];
         int right = newInterval[1];
@@ -51,5 +58,48 @@ public class Code057_Insert {
             ans[i] = ansList.get(i);
         }
         return ans;
+    }
+
+    public int[][] insert2(int[][] intervals, int[] newInterval) {
+        List<int[]> res = new ArrayList<>();
+        int i = 0;
+        int n = intervals.length;
+
+        // 1. 将所有在新区间左侧且无重叠的区间加入
+        while (i < n && intervals[i][1] < newInterval[0]) {
+            res.add(intervals[i]);
+            i++;
+        }
+
+        // 2. 合并所有与新区间有重叠的区间
+        while (i < n && intervals[i][0] <= newInterval[1]) {
+            newInterval[0] = Math.min(newInterval[0], intervals[i][0]);
+            newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
+            i++;
+        }
+        res.add(newInterval); // 将合并后的巨型新区放入
+
+        // 3. 将所有在新区间右侧且无重叠的区间加入
+        while (i < n) {
+            res.add(intervals[i]);
+            i++;
+        }
+
+        return res.toArray(new int[res.size()][]);
+    }
+
+    static void main() {
+        Code057_Insert code = new Code057_Insert();
+        // [[1,2],[3,5],[6,7],[8,10],[12,16]]
+        int[][] intervals = {
+                {1, 5}
+        };
+        int[] newInterval = {2,7};
+
+        System.out.println("----");
+        int[][] ans2 = code.insert2(intervals, newInterval);
+        for (int[] interval : ans2) {
+            System.out.println("[" + interval[0] + ", " + interval[1] + "]");
+        }
     }
 }

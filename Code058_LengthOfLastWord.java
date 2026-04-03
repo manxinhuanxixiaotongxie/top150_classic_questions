@@ -25,4 +25,22 @@ public class Code058_LengthOfLastWord {
         }
         return res;
     }
+
+    public int lengthOfLastWord2(String s) {
+        if (s == null || s.isEmpty()) {
+            return 0;
+        }
+        char[] str = s.toCharArray();
+        int index = str.length - 1;
+        int ans = 0;
+        while (index >= 0 && str[index] == ' ') {
+            index--;
+        }
+        // 此时index来到了最后一个是字符的位置
+        while (index >= 0 && str[index] != ' ') {
+            ans++;
+            index--;
+        }
+        return ans;
+    }
 }
