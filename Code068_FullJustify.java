@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -82,5 +83,57 @@ public class Code068_FullJustify {
             sb.append(words[i]);
         }
         return sb;
+    }
+
+    /**
+     * 滑动窗口
+     *
+     * @param words
+     * @param maxWidth
+     * @return
+     */
+    public List<String> fullJustify2(String[] words, int maxWidth) {
+        List<String> ans = new ArrayList<>();
+        int n = words.length;
+        for (int i = 0; i < n; ) {
+            int start = i; // 这一行第一个单词的下标
+            int sumLen = words[i].length(); // 第一个单词的长度
+            for (i++; i < n && sumLen + words[i].length() + 1 <= maxWidth; i++) {
+                sumLen += words[i].length() + 1; // 单词之间至少要有一个空格
+            }
+
+            int extraSpaces = maxWidth - sumLen; // 这一行剩余未分配的空格个数
+            int gaps = i - start - 1; // 这一行单词之间的空隙个数（单词个数减一）
+
+            // 特殊情况：如果只有一个单词，或者是最后一行，那么左对齐，末尾补空格
+            if (gaps == 0 || i == n) {
+                // 末尾补空格
+                String row = join(words, start, i, " ") + " ".repeat(extraSpaces);
+                ans.add(row);
+                continue;
+            }
+
+            // 一般情况：把 extraSpaces 个空格均匀分配到 gaps 个空隙中（靠左的空格更多）
+            int avg = extraSpaces / gaps;
+            int rem = extraSpaces % gaps;
+            // +1 表示加上单词之间已有的一个空格
+            String spaces = " ".repeat(avg + 1);
+            // 前 rem 个空隙多一个空格
+            String row = join(words, start, start + rem + 1, spaces + ' ') +
+                    spaces + join(words, start + rem + 1, i, spaces);
+            ans.add(row);
+        }
+        return ans;
+    }
+
+
+    static void main() {
+            String[] words = {"Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"};
+            int maxWidth = 20;
+            Code068_FullJustify code = new Code068_FullJustify();
+            List<String> ans = code.fullJustify2(words, maxWidth);
+            for (String s : ans) {
+                System.out.println(s);
+            }
     }
 }

@@ -1,3 +1,7 @@
+/**
+ * 给你两个二进制字符串 a 和 b ，以二进制字符串的形式返回它们的和。
+ *
+ */
 public class Code067_AddBinary {
 
     public String addBinary(String a, String b) {
@@ -56,12 +60,39 @@ public class Code067_AddBinary {
         return String.valueOf(charArray);
     }
 
+    public String addBinary2(String a, String b) {
+        char[] str1 = a.toCharArray();
+        char[] str2 = b.toCharArray();
+        int add = 0;
+        int r1 = str1.length - 1, r2 = str2.length - 1;
+        StringBuilder sb = new StringBuilder();
+        while (r1 >= 0 && r2 >= 0) {
+            int sum = str1[r1--] + str2[r2--] - 96 + add;
+            sb.insert(0, sum % 2);
+            add = sum / 2;
+        }
+        while (r1 >= 0) {
+            int sum = str1[r1--] - 48 + add;
+            sb.insert(0, sum % 2);
+            add = sum / 2;
+        }
+        while (r2 >= 0) {
+            int sum = str2[r2--] - 48 + add;
+            sb.insert(0, sum % 2);
+            add = sum / 2;
+        }
+        if (add == 1) {
+            sb.insert(0,1);
+        }
+        return String.valueOf(sb);
+    }
+
 
     public static void main(String[] args) {
-        String a = "101111";
-        String b = "10";
+        String a = "11";
+        String b = "1001";
         Code067_AddBinary addBinary = new Code067_AddBinary();
-        System.out.printf(addBinary.addBinary(a, b));
+        System.out.printf(addBinary.addBinary2(a, b));
     }
 
 }

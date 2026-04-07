@@ -1,11 +1,15 @@
 /**
- * 给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加一。
+ * 给定一个表示 大整数 的整数数组 digits，其中 digits[i] 是整数的第 i 位数字。这些数字按从左到右，从最高位到最低位排列。这个大整数不包含任何前导 0。
  * <p>
- * 最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
- * <p>
- * 你可以假设除了整数 0 之外，这个整数不会以零开头。
+ * 将大整数加 1，并返回结果的数字数组。
  */
 public class Code066_PlusOne {
+    /**
+     * 不是最优解
+     *
+     * @param digits
+     * @return
+     */
     public int[] plusOne(int[] digits) {
         int add = 1;
         int N = digits.length;
@@ -46,6 +50,43 @@ public class Code066_PlusOne {
                 }
             }
             return res;
+        }
+    }
+
+    /**
+     * 下一个数字
+     *
+     * @param digits
+     * @return
+     */
+    public int[] plusOne2(int[] digits) {
+        // 找到第一个9所在位置
+        // 分情况讨论
+        // 第一种情况 9的后面存在非9的数字 最后1位+1
+        // 第二种情况  不存在 向前找第一个非9的数字 该位置+1 该位置后面全部置0
+        // 还有一种情况 要补位
+        int N = digits.length;
+        int index = N - 1;
+        if (digits[N - 1] < 9) {
+            digits[N - 1]++;
+            return digits;
+        } else {
+            // 向前找第一个非9
+            while (index >= 0 && digits[index] == 9) {
+                index--;
+            }
+            if (index < 0) {
+                // 补0
+                int[] ints = new int[N + 1];
+                ints[0] = 1;
+                return ints;
+            } else {
+                digits[index++]++;
+                while (index < N) {
+                    digits[index++] = 0;
+                }
+                return digits;
+            }
         }
     }
 }

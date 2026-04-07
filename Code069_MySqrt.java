@@ -25,47 +25,20 @@ public class Code069_MySqrt {
         if (x == 0 || x == 1) {
             return x;
         }
-        int left = 0;
-        int right = x / 2;
-        int ans = left;
+       int left = 0;
+        int right = x >> 1;
         while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (mid * mid == x) {
-                return mid;
-            } else if ((long) mid * mid < x) {
-                ans = mid;
+            int mid = left + ((right - left) >> 1);
+            if ((long)mid * mid <= x) {
                 left = mid + 1;
-            } else {
+            }else {
                 right = mid - 1;
             }
         }
-        return ans;
+        return left -1 ;
     }
 
-    /**
-     * 二分
-     *
-     * @param x
-     * @return
-     */
-    public int mySqrt3(int x) {
-        if (x == 0 || x == 1) {
-            return x;
-        }
-        int left = 0;
-        int right = x / 2;
-        int ans = left;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (mid * mid <= x) {
-                ans = mid;
-                left = mid + 1;
-            } else {
-                right = mid - 1;
-            }
-        }
-        return ans;
-    }
+
 
 
     public static void main(String[] args) {
