@@ -3,7 +3,8 @@ import java.util.List;
 /**
  * 给定一个三角形 triangle ，找出自顶向下的最小路径和。
  * <p>
- * 每一步只能移动到下一行中相邻的结点上。相邻的结点 在这里指的是 下标 与 上一层结点下标 相同或者等于 上一层结点下标 + 1 的两个结点。
+ * 每一步只能移动到下一行中相邻的结点上。相邻的结点 在这里指的是
+ * 下标 与 上一层结点下标 相同或者等于 上一层结点下标 + 1 的两个结点。
  * 也就是说，如果正位于当前行的下标 i ，那么下一步可以移动到下一行的下标 i 或 i + 1 。
  */
 public class Code120_MinimumTotal {
@@ -14,20 +15,20 @@ public class Code120_MinimumTotal {
     }
 
     // 来到第i层
-    // 上层取的位置是pre
-    public int process(List<List<Integer>> triangle, int i, int pre) {
+    // 上层取的位置是lastIndex
+    public int process(List<List<Integer>> triangle, int i, int lastIndex) {
         if (triangle.size() == i) {
             return 0;
         }
-        // 来到多少层
+        // 来到多少层 当前层可以选择的位置 就会有两种情况可选
         List<Integer> curLevel = triangle.get(i);
         // 取i位置获得的最小值
-        int left = curLevel.get(pre) + process(triangle, i + 1, pre);
+        int left = curLevel.get(lastIndex) + process(triangle, i + 1, lastIndex);
         // 取i+1位置获得最小值
-        if (pre + 1 >= curLevel.size()) {
-            return left; // 如果pre+1超出范围，直接返回left
-        }
-        int right = curLevel.get(pre + 1) + process(triangle, i + 1, pre + 1);
+//        if (lastIndex + 1 >= curLevel.size()) {
+//            return left; // 如果pre+1超出范围，直接返回left
+//        }
+        int right = curLevel.get(lastIndex + 1) + process(triangle, i + 1, lastIndex + 1);
         // 返回两者的最小值
         return Math.min(left, right);
     }
@@ -111,6 +112,34 @@ public class Code120_MinimumTotal {
         }
         // 返回最顶层的最小路径和
         return triangle.get(0).get(0) + dp[0];
+    }
+
+
+    /**
+     * 这样是不行的
+     * 理由：
+     * 1.可能存在重复的数字 干扰判断
+     * 2.后面的数字的大小无法预测
+     *
+     * 只能暴力枚举下一层所有情形 选择最小的
+     * @param triangle
+     * @return
+     */
+    public int minimumTotal4(List<List<Integer>> triangle) {
+        int ans = 0;
+        if (triangle == null || triangle.size() == 0) return ans;
+        if (triangle.size() == 1) return triangle.get(0).get(0);
+        ans += triangle.get(0).get(0);
+        int pre = 0;
+        for (int i = 1; i < triangle.size(); i++) {
+            // 当前层
+            List<Integer> curLevel = triangle.get(i);
+            // 当前层可以获取的位置就是pre与pre + 1
+            int minIndex = curLevel.get(pre) > curLevel.get(curLevel.get(pre)) ? pre + 1 : pre;
+            ans += curLevel.get(minIndex);
+            pre = minIndex;
+        }
+        return ans;
     }
 
     public static void main(String[] args) {

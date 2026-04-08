@@ -10,10 +10,14 @@ import java.util.Arrays;
  * |n - m| <= 1
  * 交错 是 s1 + t1 + s2 + t2 + s3 + t3 + ... 或者 t1 + s1 + t2 + s2 + t3 + s3 + ...
  * 注意：a + b 意味着字符串 a 和 b 连接。
+ *
+ * 进阶：您能否仅使用 O(s2.length) 额外的内存空间来解决它?
  */
 public class Code97_IsInterleave {
     /**
      * 动态规划题目
+     *
+     * 范围上的尝试模型
      *
      * @param s1
      * @param s2

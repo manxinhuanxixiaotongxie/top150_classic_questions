@@ -8,7 +8,26 @@ import com.sun.source.tree.WhileLoopTree;
  */
 public class Code086 {
     public ListNode partition(ListNode head, int x) {
-        return null;
+        ListNode smallDummy = new ListNode(0);
+        ListNode smallCur = smallDummy;
+        ListNode bigDummy = new ListNode(0);
+        ListNode bigCur = bigDummy;
+        ListNode cur = head;
+        while (cur != null) {
+            ListNode next = cur.next;
+            if (cur.val < x) {
+                smallCur.next = cur;
+                smallCur = cur;
+                cur.next = null;
+            }else {
+                bigCur.next = cur;
+                bigCur = cur;
+                cur.next = null;
+            }
+            cur = next;
+        }
+        smallCur.next = bigDummy.next;
+        return smallDummy.next;
     }
 
 }
