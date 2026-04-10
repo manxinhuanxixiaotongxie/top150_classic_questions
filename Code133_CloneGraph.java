@@ -17,24 +17,6 @@ public class Code133_CloneGraph {
 
     public Node cloneGraph(Node node) {
         if (node == null) return node;
-//        LinkedList<Node> queue = new LinkedList<>();
-//        Set<Node> visited = new HashSet<>();
-//        queue.add(node);
-//        visited.add(node);
-//        Node newHead = new Node(node.val);
-//        while (!queue.isEmpty()) {
-//            Node poll = queue.poll();
-//            for (Node neighbor : poll.neighbors) {
-//                if (!visited.contains(neighbor)) {
-//                    Node newNode = new Node(neighbor.val);
-//                    queue.add(neighbor);
-//                    visited.add(neighbor);
-//                    poll.neighbors.add(newNode);
-//                }
-//
-//            }
-//        }
-
         Map<Node, Node> map = new HashMap<>();
         LinkedList<Node> queue = new LinkedList<>();
         queue.add(node);
