@@ -13,6 +13,7 @@ public class Code205_IsIsomorphic {
         if (s.length() != t.length()) {
             return false;
         }
+        // 为什么需要两个 举个例子  s-->t   b -->t    s-->t t__>b 这些都是不行的
         Map<Character, Character> sMap = new java.util.HashMap<>();
         Map<Character, Character> tMap = new java.util.HashMap<>();
         sMap.put(s.charAt(0), t.charAt(0));

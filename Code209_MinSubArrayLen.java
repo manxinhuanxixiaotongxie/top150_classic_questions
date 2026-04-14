@@ -33,4 +33,23 @@ public class Code209_MinSubArrayLen {
         }
         return res == Integer.MAX_VALUE ? 0 : res;
     }
+
+    public int minSubArrayLen2(int target, int[] nums) {
+        int n = nums.length;
+        int end = 0;
+        int ans = n + 1;
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            // 从当前i位置出发
+            while (end < n && sum < target) {
+                sum += nums[end++];
+            }
+            if (sum < target) {
+                break;
+            }
+            ans = Math.min(ans, end - i);
+            sum -= nums[i];
+        }
+        return ans == n + 1 ? 0 : ans;
+    }
 }
