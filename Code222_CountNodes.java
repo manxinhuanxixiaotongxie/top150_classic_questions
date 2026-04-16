@@ -1,5 +1,9 @@
 import java.util.LinkedList;
 
+/**
+ * 进阶：遍历树来统计节点是一种时间复杂度为 O(n) 的简单解决方案。你可以设计一个更快的算法吗？
+ * morris遍历 ：时间复杂度O（n） 空间复杂度O（1）
+ */
 public class Code222_CountNodes {
     /**
      * 宽度优先遍历
