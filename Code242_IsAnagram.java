@@ -2,6 +2,9 @@
  * 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的 字母异位词。
  * <p>
  * 字母异位词是通过重新排列不同单词或短语的字母而形成的单词或短语，并使用所有原字母一次。
+ * 进阶: 如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？
+ * 如果输入字符串包含 unicode 字符，把数组改成哈希表即可。
+ *
  */
 public class Code242_IsAnagram {
     public boolean isAnagram(String s, String t) {

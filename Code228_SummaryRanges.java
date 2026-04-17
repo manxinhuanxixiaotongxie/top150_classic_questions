@@ -43,6 +43,61 @@ public class Code228_SummaryRanges {
         return result;
     }
 
+    /**
+     * 直接滑动
+     *
+     * @param nums
+     * @return
+     */
+    public List<String> summaryRanges2(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return new ArrayList<>();
+        }
+        int n = nums.length;
+        int l = 0;
+        int end = 0;
+        List<String> result = new ArrayList<>();
+        while (l < n) {
+            while (end < n - 1 && nums[end] + 1 == nums[end + 1]) {
+                end++;
+            }
+            if (l == end) {
+                result.add(nums[l] + "");
+            } else {
+                result.add(nums[l] + "->" + nums[end]);
+            }
+            end++;
+            l = end;
+        }
+        return result;
+    }
+
+    /**
+     * 分组循环
+     *
+     * @param nums
+     * @return
+     */
+    public List<String> summaryRanges3(int[] nums) {
+
+        int n = nums.length;
+        int i = 0;
+        List<String> result = new ArrayList<>();
+        while (i < n) {
+            int start = i;
+            while (i < n - 1 && nums[i] + 1 == nums[i + 1]) {
+                i++;
+            }
+            if (start == i) {
+                result.add(nums[start] + "");
+            } else {
+                result.add(nums[start] + "->" + nums[i]);
+            }
+            i++;
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         Code228_SummaryRanges code228 = new Code228_SummaryRanges();
         int[] nums = {0, 1, 2, 4, 5, 7};

@@ -98,4 +98,70 @@ public class Code224_Calculate {
 
         return new int[]{ans, index};
     }
+
+    /**
+     * 补充题目：
+     * leetcode 227
+     * 如果有乘除应该怎么处理
+     *
+     * @param s
+     * @return
+     */
+    public int calculate3(String s) {
+        return process3(s.replace(" ", "").toCharArray(), 0)[0];
+    }
+
+    public int[] process3(char[] str, int index) {
+        if (index == str.length) return new int[]{0, str.length};
+        // 模拟队列  尾巴进 头部出
+        Deque<Integer> queue = new LinkedList<>();
+        int res = 0;
+        int num = 0;
+        char sign = '+';
+        while (index < str.length && str[index] != ')') {
+            char cur = str[index];
+            if (cur == ' ') {
+                index++;
+                continue;
+            }
+            if (Character.isDigit(cur)) {
+                num = num * 10 + (cur - '0');
+            } else if (cur == '(') {
+                // 计算到与之匹配的有括号的位置
+                int[] next = process3(str, index + 1);
+                num = next[0];
+                index = next[1];
+            }
+            // 只能是符号了
+            // index来到最后一个位置也需要进行结算
+            if (cur == '+' || cur == '-' || cur == '*' || cur == '/' || index == str.length - 1) {
+                switch (sign) {
+                    case '+':
+                        queue.offerLast(num);
+                        break;
+                    case '-':
+                        queue.offerLast(-num);
+                        break;
+                    case '*':
+                        queue.offerLast(queue.pollLast() * num);
+                        break;
+                    case '/':
+                        queue.offerLast(queue.pollLast() / num);
+                        break;
+
+                }
+                sign = cur;
+                num = 0;
+            }
+            index++;
+            // 写在这里有问题 为什么
+            //每次迭代都会重置 num，包括处理完 ( 之后。导致括号内的结果还没被结算
+//            num = 0;
+        }
+        for (int i : queue) {
+            res += i;
+        }
+        return new int[]{res, index};
+    }
+
 }
