@@ -22,6 +22,9 @@ public class Code392_IsSubsequence {
      * @return
      */
     public boolean isSubsequence(String s, String t) {
+        if (s.isEmpty()) {
+            return true;
+        }
         char[] ss = s.toCharArray();
         char[] tt = t.toCharArray();
         int i = 0, j = 0;
