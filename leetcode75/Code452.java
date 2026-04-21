@@ -1,5 +1,7 @@
 package leetcode75;
 
+import java.util.Arrays;
+
 /**
  * 有一些球形气球贴在一堵用 XY 平面表示的墙面上。墙面上的气球记录在整数数组 points ，其中points[i] = [xstart, xend]
  * 表示水平直径在 xstart 和 xend之间的气球。你不知道气球的确切 y 坐标。
@@ -11,10 +13,18 @@ package leetcode75;
  */
 public class Code452 {
     public int findMinArrowShots(int[][] points) {
-
-        // 贪心
-        int ans = 0;
-
+        if (points.length == 0) {
+            return 0;
+        }
+        Arrays.sort(points, (point1, point2) -> Integer.compare(point1[1], point2[1]));
+        int pos = points[0][1];
+        int ans = 1;
+        for (int[] balloon : points) {
+            if (balloon[0] > pos) {
+                pos = balloon[1];
+                ++ans;
+            }
+        }
         return ans;
     }
 }

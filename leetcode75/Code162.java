@@ -29,6 +29,34 @@ public class Code162 {
         return right;
     }
 
+    /**
+     * 闭区间
+     *
+     * 证明：如果nums[mid] < nums[mid+1] 那么[mid+1,n-1]已经存在峰值
+     * 为什么？
+     * 假设不存在 那么mid+1到n-1一定是递增的  最后一个是峰值
+     *
+     * @param nums
+     * @return
+     */
+    public int findPeakElement2(int[] nums) {
+        if (nums == null || nums.length == 0) return -1;
+        if (nums.length == 1) return 0;
+        if (nums[0] > nums[1]) return 0;
+        if (nums[nums.length - 1] > nums[nums.length - 2]) return nums.length - 1;
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[mid + 1]) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+
     public static void main(String[] args) {
         Code162 code162 = new Code162();
         int[] nums = {3, 4, 3, 2, 1};

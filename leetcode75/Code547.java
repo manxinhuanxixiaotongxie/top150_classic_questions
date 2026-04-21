@@ -25,7 +25,7 @@ public class Code547 {
                 }
             }
         }
-        return unionSet.sets();
+        return unionSet.getSize();
 
     }
 
@@ -33,19 +33,19 @@ public class Code547 {
         // parents[i] = k 代表 i 的父亲是 k
         int[] parent;
         // sizes[i] = k 代表 i 所在的集合大小是 k
-        int[] size;
+        int[] sizeMap;
         // help数组是在寻找父节点的过程中将并查集变得扁平
         int[] help;
-        int sets;
+        int size;
 
         UnionSet(int n) {
             parent = new int[n];
-            size = new int[n];
+            sizeMap = new int[n];
             help = new int[n];
-            sets = n;
+            size = n;
             for (int i = 0; i < n; i++) {
                 parent[i] = i;
-                size[i] = 1;
+                sizeMap[i] = 1;
             }
         }
 
@@ -53,20 +53,20 @@ public class Code547 {
             int aFather = findFather(a);
             int bFather = findFather(b);
             if (aFather != bFather) {
-                if (size[aFather] >= size[bFather]) {
+                if (sizeMap[aFather] >= sizeMap[bFather]) {
                     parent[bFather] = aFather;
-                    size[aFather] += size[bFather];
+                    sizeMap[aFather] += sizeMap[bFather];
                 } else {
                     parent[aFather] = bFather;
-                    size[bFather] += size[aFather];
+                    sizeMap[bFather] += sizeMap[aFather];
                 }
-                sets--;
+                size--;
             }
         }
 
 
-        public int sets() {
-            return sets;
+        public int getSize() {
+            return size;
         }
 
         // a b 是否属于一个集合

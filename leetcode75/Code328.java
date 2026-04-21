@@ -38,4 +38,31 @@ public class Code328 {
         odd.next = evenHead.next;
         return oddHead.next;
     }
+
+    public ListNode oddEvenList2(ListNode head) {
+        if (head == null || head.next == null) return head;
+        // 奇数节点
+        ListNode odd = new ListNode(-1);
+        ListNode oddHead = odd;
+        // 偶数节点
+        ListNode even = new ListNode(-1);
+        ListNode evenHead = even; // 偶数节点的头节点
+        ListNode cur = head;
+        int index = 0;
+        while (cur != null) {
+            ListNode next = cur.next;
+            if (++index % 2 == 0) {
+                // 偶数
+                even.next = cur;
+                even = cur;
+            } else {
+                odd.next = cur;
+                odd = cur;
+            }
+            cur = next;
+        }
+        even.next = null;
+        odd.next = evenHead.next;
+        return oddHead.next;
+    }
 }

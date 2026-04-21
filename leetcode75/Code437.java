@@ -37,4 +37,30 @@ public class Code437 {
             return left + right + (root.val == targetSum ? 1 : 0);
         }
     }
+
+    public int pathSum2(TreeNode root, long targetSum) {
+        if (root == null) {
+            return 0;
+        }
+        int ans = 0;
+        ans += process2(root, targetSum);
+        ans += pathSum2(root.left, targetSum);
+        ans += pathSum2(root.right, targetSum);
+
+        return ans;
+    }
+
+    public int process2(TreeNode root, long targetSum) {
+        if (root == null) {
+            return 0;
+        }
+        int count = 0;
+        if (targetSum == root.val) {
+            count++;
+        }
+
+        count += process2(root.left, targetSum - root.val);
+        count += process2(root.right, targetSum - root.val);
+        return count;
+    }
 }

@@ -82,4 +82,25 @@ public class Code300 {
         }
         return ans;
     }
+
+    public int lengthOfLIS4(int[] nums) {
+        // 改动态规划
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int n = nums.length;
+        int[] dp = new int[n];
+        dp[n - 1] = 1;
+        int ans = 1;
+        for (int index = n - 2; index >= 0; index--) {
+            dp[index] = 1;
+            for (int i = index + 1; i < n; i++) {
+                if (nums[i] > nums[index]) {
+                    dp[index] = Math.max(dp[index], dp[i] + 1);
+                }
+            }
+            ans = Math.max(ans, dp[index]);
+        }
+        return ans;
+    }
 }

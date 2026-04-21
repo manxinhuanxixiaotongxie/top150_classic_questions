@@ -37,6 +37,44 @@ public class Code1456 {
         return ans;
     }
 
+    /**
+     * 更优雅的实现
+     *
+     * @param s
+     * @param k
+     * @return
+     */
+    public int maxVowels2(String s, int k) {
+        if (s == null || s.length() == 0 || s.length() < k || k <= 0) {
+            return 0;
+        }
+        LinkedList<Integer> window = new LinkedList<>();
+        int ans = 0;
+        int times = 0;
+        int index = 0;
+        char[] str = s.toCharArray();
+        while (index < str.length) {
+            int left = index - k + 1;
+            if (str[index] == 'a' || str[index] == 'e' || str[index] == 'i' || str[index] == 'o' || str[index] == 'u') {
+                times++;
+            }
+            index++;
+            if (left < 0) {
+                continue;
+            }
+            if (ans == k) {
+                return ans;
+            }
+            ans = Math.max(ans, times);
+            if (str[left] == 'a' || str[left] == 'e' || str[left] == 'i' || str[left] == 'o' || str[left] == 'u') {
+                times--;
+            }
+
+        }
+
+        return ans;
+    }
+
     public boolean isVowel(char c) {
         return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
     }

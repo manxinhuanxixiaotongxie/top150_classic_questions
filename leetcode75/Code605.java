@@ -8,7 +8,9 @@ package leetcode75;
  */
 public class Code605 {
     /**
+     *
      * 超时
+     * 题目给定的条件 即使改成动态规划 也会超时
      *
      * @param flowerbed
      * @param n
@@ -87,6 +89,25 @@ public class Code605 {
 
         return true;
     }
+
+    /**
+     * 优雅解法
+     *
+     * @param flowerbed
+     * @param n
+     * @return
+     */
+    public boolean canPlaceFlowers3(int[] flowerbed, int n) {
+        int m = flowerbed.length;
+        for (int i = 0; i < m; i++) {
+            if ((i == 0 || flowerbed[i - 1] == 0) && flowerbed[i] == 0 && (i == m - 1 || flowerbed[i + 1] == 0)) {
+                n--;
+                i++; // 下一个位置肯定不能种花，直接跳过
+            }
+        }
+        return n <= 0;
+    }
+
 
     public static void main(String[] args) {
         Code605 code605 = new Code605();

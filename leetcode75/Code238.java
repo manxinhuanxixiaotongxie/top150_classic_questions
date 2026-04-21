@@ -16,4 +16,26 @@ public class Code238 {
         }
         return ans;
     }
+
+    /**
+     * 空间O(1)的做法
+     *
+     * @param nums
+     * @return
+     */
+    public int[] productExceptSelf2(int[] nums) {
+        int[] ans = new int[nums.length];
+        int n = nums.length;
+        int pre = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            ans[i] = pre;
+            pre *= nums[i];
+        }
+        int left = 1;
+        for (int i = 0; i < n; i++) {
+            ans[i] = left * ans[i];
+            left *= nums[i];
+        }
+        return ans;
+    }
 }
