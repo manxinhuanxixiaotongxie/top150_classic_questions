@@ -15,29 +15,35 @@ package leetcode75;
  * 你必须设计并实现一个只使用常量额外空间的算法来解决此问题。
  */
 public class Code443 {
+    /**
+     * 滑动窗口
+     *
+     * @param chars
+     * @return
+     */
     public int compress(char[] chars) {
         int N = chars.length;
         int ans = 0;
-        int begin = 0;
-        int end = 0;
-        while (begin < N) {
-            while (end < N && chars[end] == chars[begin]) {
+        int index = 0;
+        while (index < N) {
+            // 滑动窗口
+            int end = index;
+            while (end < N - 1 && chars[end] == chars[end + 1]) {
                 end++;
             }
-            // 总共有多少个
-            int count = end - begin;
-            if (begin == end) {
-                chars[ans++] = chars[begin++];
-                end++;
+            // end来到了相等的最后一个位置
+            // 个数
+            int num = end - index + 1;
+            if (num == 1) {
+                chars[ans++] = chars[index++];
             } else {
-                chars[ans++] = chars[begin];
-                if (count > 1) {
-                    String countStr = String.valueOf(count);
-                    for (int i = 0; i < countStr.length(); i++) {
-                        chars[ans++] = countStr.charAt(i);
-                    }
+                // 不为1 说明重复大于1
+                chars[ans++] = chars[index];
+                String string = String.valueOf(num);
+                for (int i = 0; i < string.length(); i++) {
+                    chars[ans++] = string.charAt(i);
                 }
-                begin = end;
+                index = end + 1;
             }
         }
         return ans;

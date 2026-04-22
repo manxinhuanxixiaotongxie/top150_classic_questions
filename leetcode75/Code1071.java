@@ -6,11 +6,17 @@ package leetcode75;
  * 给定两个字符串 str1 和 str2 。返回 最长字符串 x，要求满足 x 能除尽 str1 且 x 能除尽 str2 。
  */
 public class Code1071 {
+    /**
+     * 暴力解法
+     *
+     * @param str1
+     * @param str2
+     * @return
+     */
     public String gcdOfStrings(String str1, String str2) {
         // 从最长开始枚举
         int len1 = str1.length();
         int len2 = str2.length();
-        StringBuilder sb = new StringBuilder();
         for (int i = Math.min(len1, len2); i > 0; i--) {
             // 使用最小字符串的最小长度进行枚举
             // 判断从 0-i-1的字符串是否能拼接出来两个字符串

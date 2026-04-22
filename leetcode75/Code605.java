@@ -90,6 +90,42 @@ public class Code605 {
         return true;
     }
 
+    public boolean canPlaceFlowers3(int[] flowerbed, int n) {
+        int m = flowerbed.length;
+        // 贪心 当前位置能种花的前提是左右两边都不能有花 否则就不满足条件
+        // 从0开始 零位置只有这一种可能能够种花 没有其余的可能行能够种花
+        if (m == 1) {
+            if (flowerbed[0] == 0) {
+                n--;
+            }
+            return n <= 0;
+        }
+        if (m == 2) {
+            if (flowerbed[0] == 0 && flowerbed[1] == 0) {
+                flowerbed[0] = 1;
+                n--;
+            }
+            return n <= 0;
+        }
+        if (flowerbed[0] == 0 && flowerbed[1] == 0) {
+            n--;
+            flowerbed[0] = 1;
+        }
+        // 从第二个位置出发
+        for (int i = 1; i < m - 1; i++) {
+            if (flowerbed[i] == 0 && flowerbed[i - 1] == 0 && flowerbed[i + 1] == 0) {
+                n--;
+                flowerbed[i] = 1;
+            }
+        }
+        // 单独处理最后一个位置
+        if (flowerbed[m - 1] == 0 && flowerbed[m - 2] == 0) {
+            n--;
+            flowerbed[m - 1] = 1;
+        }
+        return n <= 0;
+    }
+
     /**
      * 优雅解法
      *
@@ -97,7 +133,7 @@ public class Code605 {
      * @param n
      * @return
      */
-    public boolean canPlaceFlowers3(int[] flowerbed, int n) {
+    public boolean canPlaceFlowers4(int[] flowerbed, int n) {
         int m = flowerbed.length;
         for (int i = 0; i < m; i++) {
             if ((i == 0 || flowerbed[i - 1] == 0) && flowerbed[i] == 0 && (i == m - 1 || flowerbed[i + 1] == 0)) {

@@ -1,5 +1,6 @@
 package leetcode75;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +35,34 @@ public class Code1679 {
                 }
                 map.put(k - key, 0);
                 map.put(key, 0);
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 双指针
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int maxOperations2(int[] nums, int k) {
+        int ans = 0;
+        int left = 0;
+        int right = nums.length - 1;
+        Arrays.sort(nums);
+        // 这里不能等 要找到两个数
+        while (left < right) {
+            if (nums[left] + nums[right] > k) {
+                right--;
+            } else if (nums[left] + nums[right] < k) {
+                left++;
+            } else {
+                // 相等
+                ans++;
+                left++;
+                right--;
             }
         }
         return ans;

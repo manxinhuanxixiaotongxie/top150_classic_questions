@@ -10,6 +10,7 @@ public class Code392 {
         if (init) return;
         char[] str = t.toCharArray();
         process(str, 0, "", set);
+        init = true;
     }
 
     private void process(char[] str, int index, String path, HashSet<String> set) {
@@ -28,6 +29,13 @@ public class Code392 {
         return set.contains(s);
     }
 
+    /**
+     * 双指针
+     *
+     * @param s
+     * @param t
+     * @return
+     */
     public boolean isSubsequence2(String s, String t) {
         int i = 0;
         int j = 0;

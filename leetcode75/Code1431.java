@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Code1431 {
     public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
-        // 预分配空间
+        // 找最大值
         List<Boolean> ans = new ArrayList<>(candies.length);
         int max = Integer.MIN_VALUE;
         for (int i = 0; i < candies.length; i++) {
