@@ -13,6 +13,12 @@ import java.util.LinkedList;
  * 保证 每次对 ping 的调用都使用比之前更大的 t 值。
  */
 public class RecentCounter {
+    /**
+     * 题意是什么？
+     * 题目保证美的对ping的调用都比之前的大
+     * 是什么意思呢？之前在时间t的时间进行访问了   后续来了一个新的时间t1 这个时间ti与之前的所有进过的t的差值在3000有多少
+     *
+     */
     LinkedList<Integer> linkedList = new LinkedList<Integer>();
 
     public RecentCounter() {
@@ -27,6 +33,7 @@ public class RecentCounter {
             linkedList.addLast(t);
             return 1;
         } else {
+            // 淘汰与现在时间差大于3000的时间
             while (!linkedList.isEmpty() && linkedList.getFirst() < t - 3000) {
                 linkedList.removeFirst();
             }

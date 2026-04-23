@@ -36,4 +36,15 @@ public class Code1732 {
         }
         return ans;
     }
+
+    public int largestAltitude3(int[] gain) {
+        int ans = 0;
+        // 如果当前位置是负数 说明下一个位置的海拔比当前位置要小 那么当前位置就是最高海拔 计算净值
+        int pre = 0;
+        for (int i = 0; i < gain.length; i++) {
+            ans = Math.max(ans, pre + gain[i]);
+            pre = pre + gain[i];
+        }
+        return ans;
+    }
 }

@@ -25,4 +25,22 @@ public class Code724 {
         }
         return ans;
     }
+
+    public int pivotIndex2(int[] nums) {
+        int sum = 0;
+        int ans = -1;
+        for (int num : nums) {
+            sum += num;
+        }
+        int leftSum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            // 判断当前位置是否是中心下标
+            int leftTemp = leftSum + nums[i];
+            if (leftSum == sum - leftTemp) {
+                return i;
+            }
+            leftSum += nums[i];
+        }
+        return ans;
+    }
 }

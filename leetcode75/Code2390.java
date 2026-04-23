@@ -61,4 +61,30 @@ public class Code2390 {
         sb.reverse();
         return sb.toString();
     }
+
+    /**
+     * 用数组模拟战
+     *
+     * @param s
+     * @return
+     */
+    public String removeStars3(String s) {
+        char[] str = s.toCharArray();
+        char[] help = new char[str.length];
+        int size = 0;
+        for (int i = 0; i < str.length; i++) {
+            if (str[i] == '*') {
+                if (size > 0) {
+                    size -= 1;
+                }
+            } else {
+                help[size++] = str[i];
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            sb.append(help[i]);
+        }
+        return sb.toString();
+    }
 }

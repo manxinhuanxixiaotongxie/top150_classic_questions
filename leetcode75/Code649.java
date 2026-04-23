@@ -51,10 +51,6 @@ public class Code649 {
      * <p>
      * 这样一来，我们就模拟了整个投票的过程，也就可以得到最终的答案了。
      * <p>
-     * 作者：力扣官方题解
-     * 链接：https://leetcode.cn/problems/dota2-senate/solutions/517088/dota2-can-yi-yuan-by-leetcode-solution-jb7l/
-     * 来源：力扣（LeetCode）
-     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
      *
      * @param senate
      * @return

@@ -1,5 +1,6 @@
 package leetcode75;
 
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -85,6 +86,45 @@ public class Code2130 {
             cur1 = next;
         }
 
+        return ans;
+    }
+
+
+    /**
+     * 快慢指针
+     * 避免多一次的全局遍历
+     *
+     * @param head
+     * @return
+     */
+    public int pairSum3(ListNode head) {
+        if (head == null) {
+            return 0;
+        }
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        // 来到中点位置 如果是偶数 来到上中点位置
+        // 翻转链表
+        ListNode pre = null;
+        ListNode cur = slow;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        // pre就是后半部分的头节点
+        ListNode cu1 = head;
+        int ans = 0;
+        while (cu1 != slow.next) {
+            ans = Math.max(ans, pre.val + cu1.val);
+            pre = pre.next;
+            cu1 = cu1.next;
+        }
         return ans;
     }
 

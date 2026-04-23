@@ -35,7 +35,7 @@ public class Code394 {
                     sb.append(innerInfo.sb);
                 }
                 count = 0; // 重置计数器
-                start = innerInfo.count + 1; // 更新start到右括号之后
+                start = innerInfo.index + 1; // 更新start到右括号之后
             }
         }
         return new Info(sb, start);
@@ -43,51 +43,52 @@ public class Code394 {
 
     class Info {
         StringBuilder sb;
-        int count;
+        int index;
 
-        public Info(StringBuilder sb, int count) {
+        public Info(StringBuilder sb, int index) {
             this.sb = sb;
-            this.count = count;
+            this.index = index;
         }
     }
 
-//    public String process(char[] str, int left, int right) {
-//        if (left == right) {
-//            return String.valueOf(str[left]);
-//        }
-//        StringBuilder sb = new StringBuilder();
-//        int count = 0;
-//
-//        for (int i = left; i <= right;) {
-//            // 总共有几种情况
-//            // 第一种情况 当前字符是字符
-//            if (isLetter(str[i])) {
-//               sb.append(str[i++]);
-//            }
-//            // 第二种情况 当前字符是数字
-//            else if (isDigit(str[i])) {
-//                count = count * 10 + (str[i++] - '0');
-//            }
-//            // 第三种情况 当前字符是左括号
-//            else if (str[i] == '[') {
-//                int start = ++i;
-//                StringBuilder inner = new StringBuilder();
-//                while (start < right && str[start] != ']') {
-//                    inner.append(str[start++]);
-//                }
-//                // 从left到index-1范围字符串是重复字符串
-//                for (int times = 0; times < count; times++) {
-//                    sb.append(inner);
-//                }
-//                sb.append(process(str, i + 1, right)); // 处理右括号之后的字符串
-//                count = 0; // 重置计数器
-//                i = start + 1; // 移动到右括号之后
-//            }
-//            // 第四种情况 当前字符是右括号
-//            // 这个函数的含义是 从left-right之前字符串
-//        }
-//        return sb.toString();
-//    }
+    // 使用嵌套结构
+    public String decodeString2(String s) {
+        return process2(s.toCharArray(), 0).sb.toString();
+    }
+
+    public Info process2(char[] str, int index) {
+        int num = 0;
+        StringBuilder sb = new StringBuilder();
+        while (index < str.length && str[index] != ']') {
+            // 如果当前字符是数字 进行计数
+            char curStr = str[index];
+            if (isDigit(curStr)) {
+                // 当前是数字
+                num = num * 10 + (str[index++] - '0');
+                continue;
+            }
+            // 如果是[
+            if (curStr == '[') {
+                // 开始递归
+                Info info = process2(str, index + 1);
+                // 已经拿到了括号里面的内容
+                for (int i = 0; i < num; i++) {
+                    // 总共有这么多个
+                    sb.append(info.sb);
+                }
+                index = info.index + 1;
+                num = 0;
+                continue;
+            }
+            if (isLetter(curStr)) {
+                // 字母
+                sb.append(curStr);
+                index++;
+            }
+        }
+        return new Info(sb, index);
+    }
+
 
     private boolean isDigit(char c) {
         return c >= '0' && c <= '9';

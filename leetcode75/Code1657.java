@@ -26,14 +26,52 @@ import static java.nio.charset.StandardCharsets.ISO_8859_1;
  * word1 = "cabbba", word2 = "abbccc"
  */
 public class Code1657 {
+
+    /**
+     * 我的实现
+     *
+     */
+    public boolean closeStrings(String word1, String word2) {
+        char[] str1 = word1.toCharArray();
+        char[] str2 = word2.toCharArray();
+        if (str1.length != str2.length) return false; // 长度不相等
+        HashSet<Character> set1 = new HashSet<>();
+        Map<Character, Integer> map1 = new HashMap<>();
+        for (char c : str1) {
+            set1.add(c);
+            map1.put(c, map1.getOrDefault(c, 0) + 1);
+        }
+        Map<Character, Integer> map2 = new HashMap<>();
+        for (char c : str2) {
+            set1.remove(c);
+            map2.put(c, map2.getOrDefault(c, 0) + 1);
+        }
+        if (!set1.isEmpty()) return false;
+        List<Integer> list1 = new ArrayList<>();
+        for (Map.Entry<Character, Integer> entry : map1.entrySet()) {
+            list1.add(entry.getValue());
+        }
+        List<Integer> list2 = new ArrayList<>();
+        for (Map.Entry<Character, Integer> entry : map2.entrySet()) {
+            list2.add(entry.getValue());
+        }
+        // 不需要判断
+//        if (list1.size() != list2.size()) return false;
+        Collections.sort(list1);
+        Collections.sort(list2);
+        for (int i = 0; i < list1.size(); i++) {
+            if (!Objects.equals(list1.get(i), list2.get(i))) {
+                return false; // 字符出现次数不相等
+            }
+        }
+        return true;
+    }
+
     /**
      * 更优雅的实现
      *
-     * @param s
-     * @param t
-     * @return
      */
-    public boolean closeStrings(String s, String t) {
+    public boolean closeStrings2(String s, String t) {
         if (s.length() != t.length()) {
             return false;
         }
@@ -44,11 +82,13 @@ public class Code1657 {
         }
 
         int[] tCnt = new int[26];
+        // 这种比toCharArray()更快
         for (byte c : t.getBytes(ISO_8859_1)) {
             tCnt[c - 'a']++;
         }
 
         for (int i = 0; i < 26; i++) {
+            // 为什么这么判断？因为如果某个字符在 s 中出现过，在 t 中也必须出现过，反之亦然。否则，无论如何交换或转换，都无法使两个字符串接近。
             if ((sCnt[i] == 0) != (tCnt[i] == 0)) {
                 return false;
             }
@@ -57,50 +97,6 @@ public class Code1657 {
         Arrays.sort(sCnt);
         Arrays.sort(tCnt);
         return Arrays.equals(sCnt, tCnt);
-    }
-
-    /**
-     * 我的实现
-     *
-     * @param word1
-     * @param word2
-     * @return
-     */
-    public boolean closeStrings2(String word1, String word2) {
-        char[] str1 = word1.toCharArray();
-        char[] str2 = word2.toCharArray();
-        if (str1.length != str2.length) return false; // 长度不相等
-        HashSet<Character> set1 = new HashSet<>();
-        Map<Character, Integer> map1 = new HashMap<>();
-        for (int i = 0; i < str1.length; i++) {
-            set1.add(str1[i]);
-            map1.put(str1[i], map1.getOrDefault(str1[i], 0) + 1);
-        }
-        Map<Character, Integer> map2 = new HashMap<>();
-        for (int i = 0; i < str2.length; i++) {
-            if (set1.contains(str2[i])) {
-                set1.remove(str2[i]);
-            }
-            map2.put(str2[i], map2.getOrDefault(str2[i], 0) + 1);
-        }
-        if (set1.size() != 0) return false;
-        List<Integer> list1 = new ArrayList<>();
-        for (Map.Entry<Character, Integer> entry : map1.entrySet()) {
-            list1.add(entry.getValue());
-        }
-        List<Integer> list2 = new ArrayList<>();
-        for (Map.Entry<Character, Integer> entry : map2.entrySet()) {
-            list2.add(entry.getValue());
-        }
-        if (list1.size() != list2.size()) return false; // 字符种类不相等
-        Collections.sort(list1);
-        Collections.sort(list2);
-        for (int i = 0; i < list1.size(); i++) {
-            if (!Objects.equals(list1.get(i), list2.get(i))) {
-                return false; // 字符出现次数不相等
-            }
-        }
-        return true;
     }
 
     /**
