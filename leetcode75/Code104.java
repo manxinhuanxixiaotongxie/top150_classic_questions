@@ -65,6 +65,37 @@ public class Code104 {
         return ans;
     }
 
+    public int maxDepth3(TreeNode root) {
+        TreeNode cur = root;
+        int ans = 0;
+        int curHeight = 0;
+        while (cur != null) {
+            TreeNode left = cur.left;
+            if (left != null) {
+                int curLevelHeight = 1;
+                while (left.right != null && left.right != cur) {
+                    curLevelHeight++;
+                    left = left.right;
+                }
+                if (left.right == null) {
+                    left.right = cur;
+                    curHeight++;
+                    cur = cur.left;
+                    continue;
+                } else {
+                    left.right = null;
+                    // 注释掉也是对的
+                    ans = Math.max(curHeight, ans);
+                    curHeight -= (curLevelHeight + 1);
+                }
+            }
+            curHeight++;
+            ans = Math.max(curHeight, ans);
+            cur = cur.right;
+        }
+        return ans;
+    }
+
     public int process(TreeNode root) {
         if (root == null) return 0;
         int leftDepth = process(root.left);

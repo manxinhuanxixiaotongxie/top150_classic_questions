@@ -2,6 +2,7 @@ package leetcode75;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -85,14 +86,50 @@ public class Code841 {
         }
     }
 
-    public static void main(String[] args) {
+    /**
+     * 图 拓扑排序
+     * 更简易的写法
+     *
+     * @param rooms
+     * @return
+     */
+    public boolean canVisitAllRooms2(List<List<Integer>> rooms) {
+        if (rooms == null || rooms.isEmpty()) {
+            return false;
+        }
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(0);
+        Set<Integer> visited = new HashSet<>();
+        visited.add(0);
+        while (!queue.isEmpty()) {
+            // 下一层
+            int size = queue.size();
+            // 下一层节点
+            for (int i = 0; i < size; i++) {
+                List<Integer> next = rooms.get(queue.poll());
+                for (Integer integer : next) {
+                    if (!visited.contains(integer)) {
+                        visited.add(integer);
+                        queue.offer(integer);
+                    }
+                }
+            }
+        }
+
+        return visited.size() == rooms.size();
+    }
+
+    static void main(String[] args) {
         Code841 code841 = new Code841();
         List<List<Integer>> rooms = List.of(
                 List.of(1),
                 List.of(2),
-                List.of(3)
+                List.of(3),
+                List.of()
         );
         boolean result = code841.canVisitAllRooms(rooms);
-        System.out.println(result); // 输出 true
+        System.out.println(result);
+        boolean result2 = code841.canVisitAllRooms2(rooms);
+        System.out.println(result2);
     }
 }

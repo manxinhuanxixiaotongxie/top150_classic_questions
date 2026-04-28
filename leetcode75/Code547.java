@@ -11,7 +11,7 @@ package leetcode75;
  * 返回矩阵中 省份 的数量。
  */
 public class Code547 {
-    // 不需要用到图 使用并查集处理
+    // 并查集 连通性
     public int findCircleNum(int[][] isConnected) {
         if (isConnected == null || isConnected.length == 0) {
             return 0;

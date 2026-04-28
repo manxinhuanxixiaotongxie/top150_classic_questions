@@ -1,5 +1,7 @@
 package leetcode75;
 
+import java.util.HashMap;
+
 /**
  * 给你一棵以 root 为根的二叉树，二叉树中的交错路径定义如下：
  * <p>
@@ -13,6 +15,7 @@ package leetcode75;
  */
 public class Code1372 {
     int ans = 0;
+
 
     public int longestZigZag(TreeNode root) {
         if (root == null || root.left == null && root.right == null) {
@@ -41,5 +44,58 @@ public class Code1372 {
                 process(root.right, false, 1);
             }
         }
+    }
+
+    /**
+     * 超时
+     * <p>
+     * 也需要两层递归
+     * 从当前节点处
+     * 从当前树任何一个节点出发
+     *
+     * @param root
+     * @return
+     */
+    // key: node, value: int[]{way=true的结果, way=false的结果}
+    HashMap<TreeNode, int[]> cache = new HashMap<>();
+    public int longestZigZag2(TreeNode root) {
+        if (root == null || root.left == null && root.right == null) {
+            return 0; // 如果树为空或只有一个节点，返回0
+        }
+        int ans = 0;
+        ans = process2(root, true);
+        ans = Math.max(ans, process2(root, false));
+        if (root.left != null) {
+            ans = Math.max(ans, longestZigZag2(root.left));
+        }
+        if (root.right != null) {
+            ans = Math.max(ans, longestZigZag2(root.right));
+        }
+        return ans;
+    }
+
+    public int process2(TreeNode root, boolean way) {
+        if (root == null) {
+            return 0;
+        }
+        int[] cached = cache.get(root);
+        if (cached != null && cached[way ? 0 : 1] != -1) {
+            return cached[way ? 0 : 1];
+        }
+        int ans = 0;
+        if (way) {
+            if (root.right != null) {
+                ans = Math.max(ans, process2(root.right, false) + 1);
+            }
+        } else {
+            if (root.left != null) {
+                ans = Math.max(ans, process2(root.left, true) + 1);
+            }
+        }
+        if (!cache.containsKey(root)) {
+            cache.put(root, new int[]{-1, -1});
+        }
+        cache.get(root)[way ? 0 : 1] = ans;
+        return ans;
     }
 }

@@ -7,7 +7,7 @@ public class Code1161 {
         if (root == null) {
             return 0;
         }
-        // 宽度有限遍历
+        // 宽度优先遍历
         LinkedList<TreeNode> list = new LinkedList<>();
         list.add(root);
         int ans = 0;

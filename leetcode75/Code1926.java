@@ -7,11 +7,30 @@ import java.util.Queue;
  * 给你一个 m x n 的迷宫矩阵 maze （下标从 0 开始），矩阵中有空格子（用 '.' 表示）和墙（用 '+' 表示）。同时给你迷宫的入口 entrance ，
  * 用 entrance = [entrancerow, entrancecol] 表示你一开始所在格子的行和列。
  * <p>
- * 每一步操作，你可以往 上，下，左 或者 右 移动一个格子。你不能进入墙所在的格子，你也不能离开迷宫。你的目标是找到离 entrance 最近 的出口。出口 的含义是 maze 边界 上的 空格子。entrance 格子 不算 出口。
+ * 每一步操作，你可以往 上，下，左 或者 右 移动一个格子。你不能进入墙所在的格子，你也不能离开迷宫。你的目标是找到离 entrance 最近 的出口。出口 的含义是 maze 边界 上的 空格子。
+ * entrance 格子 不算 出口。
  * <p>
  * 请你返回从 entrance 到最近出口的最短路径的 步数 ，如果不存在这样的路径，请你返回 -1 。
+ *
+ * 提示：
+ *
+ * maze.length == m
+ * maze[i].length == n
+ * 1 <= m, n <= 100
+ * maze[i][j] 要么是 '.' ，要么是 '+' 。
+ * entrance.length == 2
+ * 0 <= entrancerow < m
+ * 0 <= entrancecol < n
+ * entrance 一定是空格子。
  */
 public class Code1926 {
+    /**
+     * 宽度优先遍历天然具有的计算最短路径的能力
+     *
+     * @param maze
+     * @param entrance
+     * @return
+     */
     public int nearestExit(char[][] maze, int[] entrance) {
         // 宽度优先遍历
         int row = maze.length;

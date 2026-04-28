@@ -38,6 +38,18 @@ public class Code437 {
         }
     }
 
+    /**
+     * 这个函数解决的问题是：整棵树中任意位置开始的路径，有多少条路径和等于targetSum
+     * 1.以当前 root 为路径起点，调用 process(root, targetSum) 统计
+     * 2.以左子树中的节点为起点，递归调用 pathSum(root.left, targetSum)
+     * 3.以右子树中的节点为起点，递归调用 pathSum(root.right, targetSum)
+     *
+     * 所以本质上是一个枚举起点 + 从起点往下搜索的两层结构，必须拆成两个递归。
+     *
+     * @param root
+     * @param targetSum
+     * @return
+     */
     public int pathSum2(TreeNode root, long targetSum) {
         if (root == null) {
             return 0;
@@ -50,6 +62,13 @@ public class Code437 {
         return ans;
     }
 
+    /**
+     * 这个递归解决的问题是：必须经过当前节点root的路径中 有多少条路径和等于targetSum
+     * 这个递归中 路径是固定从root开始向下走的，target随着节点不断变化
+     * @param root
+     * @param targetSum
+     * @return
+     */
     public int process2(TreeNode root, long targetSum) {
         if (root == null) {
             return 0;

@@ -1,7 +1,13 @@
 package leetcode75;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
 /**
  * n 座城市，从 0 到 n-1 编号，其间共有 n-1 条路线。因此，要想在两座不同城市之间旅行只有唯一一条路线可供选择（路线网形成一颗树）。
@@ -14,6 +20,14 @@ import java.util.List;
  * 请你帮助重新规划路线方向，使每个城市都可以访问城市 0 。返回需要变更方向的最小路线数。
  * <p>
  * 题目数据 保证 每个城市在重新规划路线方向后都能到达城市 0 。
+ *
+ * 提示：
+ *
+ * 2 <= n <= 5 * 10^4
+ * connections.length == n-1
+ * connections[i].length == 2
+ * 0 <= connections[i][0], connections[i][1] <= n-1
+ * connections[i][0] != connections[i][1]
  */
 public class Code1466 {
     /**
@@ -50,7 +64,7 @@ public class Code1466 {
     }
 
     /**
-     * 构件图
+     * 构建图
      * 采用邻接表法
      *
      * @return
@@ -63,6 +77,7 @@ public class Code1466 {
         for (int i = 0; i < n; i++) {
             graph.add(new ArrayList<>());
         }
+        // 边集
         for (int i = 0; i < connections.length; i++) {
             int from = connections[i][0];
             int to = connections[i][1];
@@ -73,4 +88,29 @@ public class Code1466 {
         }
         return graph;
     }
+    public int minReorder2(int n, int[][] connections) {
+        // 有向无环图 n个节点有n-1个边
+        int ans = 0;
+        boolean[] visited = new boolean[n];
+        List<List<Integer>> graph = buildGraph(n, connections);
+        // 宽度优先遍历
+        // 从0开始
+        visited[0] = true;
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(0);
+        while (!queue.isEmpty()) {
+            int cur = queue.poll();
+            for (int next : graph.get(cur)) {
+                if (!visited[Math.abs(next)]) {
+                    if (next > 0) {
+                        ans++;
+                    }
+                    visited[Math.abs(next)] = true;
+                    queue.add(Math.abs(next));
+                }
+            }
+        }
+        return ans;
+    }
+
 }

@@ -50,6 +50,26 @@ public class Code1448 {
         }
     }
 
+
+    public int goodNodes3(TreeNode root) {
+        return process3(root, Integer.MIN_VALUE);
+    }
+
+    public int process3(TreeNode root, int pre) {
+        if (root == null) {
+            return 0;
+        }
+        int ans = 0;
+        if (root.val >= pre) {
+            ans += 1;
+        }
+        // 左树
+        ans += process3(root.left, Math.max(pre, root.val));
+        // 右树
+        ans += process3(root.right, Math.max(pre, root.val));
+        return ans;
+    }
+
     public static void main(String[] args) {
         Code1448 code1448 = new Code1448();
         //3,1,4,3,null,1,5
