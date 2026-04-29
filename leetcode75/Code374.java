@@ -29,6 +29,22 @@ public class Code374 {
         return left;
     }
 
+    public int guessNumber2(int n) {
+        int left = 1, right = n;
+        while (left <= right) {
+            // 从1-n进行选择
+            int mid = left + (right - left) / 2;
+            if (guess(mid) == 0) {
+                return mid; // 猜对了
+            } else if (guess(mid) > 0) {
+                left = mid + 1;  // guess=1 说明猜小了，答案在右边
+            } else {
+                right = mid - 1; // guess=-1 说明猜大了，答案在左边
+            }
+        }
+        return left;
+    }
+
     // 模拟 guess 函数
     public int guess(int num) {
         int pick = 6; // 假设我选的数字是 6

@@ -13,6 +13,7 @@ import java.util.TreeSet;
  */
 public class SmallestInfiniteSet {
     /**
+     * 按照题目的要求 初始化的时候已经包含了所有的正整数集合
      * 思路参考了官解
      * <p>
      * 如果使用一个集合或者数组来存储所有结构中存在的数，造成过大的内存的占用
@@ -42,4 +43,23 @@ public class SmallestInfiniteSet {
             set.add(num);
         }
     }
+//   用堆实现
+//    PriorityQueue<Integer> pq = new PriorityQueue<>();
+//    int number = 1;
+//    public SmallestInfiniteSet() {
+//
+//    }
+//
+//    public int popSmallest() {
+//        if(pq.isEmpty()) {
+//            return number++;
+//        }
+//        return pq.poll();
+//    }
+//
+//    public void addBack(int num) {
+//        if(number > num && !pq.contains(num)) {
+//            pq.add(num);
+//        }
+//    }
 }
