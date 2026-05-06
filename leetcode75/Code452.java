@@ -1,6 +1,7 @@
 package leetcode75;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * 有一些球形气球贴在一堵用 XY 平面表示的墙面上。墙面上的气球记录在整数数组 points ，其中points[i] = [xstart, xend]
@@ -23,6 +24,32 @@ public class Code452 {
             if (balloon[0] > pos) {
                 pos = balloon[1];
                 ++ans;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 按照开始时间进行排序
+     * @param points
+     * @return
+     */
+    public int findMinArrowShots2(int[][] points) {
+        if (points.length == 0) {
+            return 0;
+        }
+        Arrays.sort(points, (o1, o2) -> Integer.compare(o1[0], o2[0]));
+        int ans = points.length;
+        int max = points[0][1];
+        for (int i = 1; i < points.length; i++) {
+            if (points[i][0] <= max) {
+                ans--;
+                // 为什么要用min 而不是max
+                // 问题在于：按开始时间排序时，重叠的气球需要找公共交集，箭必须射在交集内。所以 max 应该取 Math.min（交集右边界），而不是 Math.max。
+                max = Math.min(max, points[i][1]);
+            }else {
+                // 不能射爆
+                max = points[i][1];
             }
         }
         return ans;

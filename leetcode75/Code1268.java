@@ -3,6 +3,7 @@ package leetcode75;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * 给你一个产品数组 products 和一个字符串 searchWord ，products  数组中每个产品都是一个字符串。
@@ -11,6 +12,7 @@ import java.util.TreeMap;
  * 如果前缀相同的可推荐产品超过三个，请按字典序返回最小的三个。
  * <p>
  * 请你以二维列表的形式，返回在输入 searchWord 每个字母后相应的推荐产品的列表。
+ *
  */
 public class Code1268 {
     public List<List<String>> suggestedProducts(String[] products, String searchWord) {
@@ -18,13 +20,24 @@ public class Code1268 {
         trie.insert(products);
         List<List<String>> ans = new ArrayList<>();
         char[] searchWordChars = searchWord.toCharArray();
+        Node cur = trie.root;
         for (int i = 0; i < searchWordChars.length; i++) {
-            for (int j = 0; i <= i; j++) {
-                // 从j 到i
-                Node curNode = trie.root;
-
-
+            char curChar = searchWordChars[i];
+            List<String> list = new ArrayList<>();
+            if (cur.next[curChar - 'a'] == null) {
+                // 当某个前缀不存在时，用了 continue 继续循环，但 cur 没有更新，后续字符还会用旧的 cur 去查，导致结果错误。
+                ans.add(list);
+                for (int k = i + 1; k < searchWordChars.length; k++) {
+                    ans.add(new ArrayList<>());
+                }
+                break;
             }
+            cur = cur.next[curChar - 'a'];
+            TreeSet<String> set = new TreeSet<>(cur.set);
+            for (int j = 0; j < 3 && !set.isEmpty(); j++) {
+                list.add(set.pollFirst());
+            }
+            ans.add(list);
         }
         return ans;
     }
@@ -42,12 +55,12 @@ public class Code1268 {
                 char[] productStr = product.toCharArray();
                 Node curNode = root;
                 for (char curChar : productStr) {
-                    if (curNode.next[curChar] == null) {
-                        curNode.next[curChar] = new Node();
-                        curNode.map = new TreeMap<>();
+                    if (curNode.next[curChar - 'a'] == null) {
+                        curNode.next[curChar - 'a'] = new Node();
                     }
-                    curNode.map.get(curNode).add(product);
-                    curNode = curNode.next[curChar];
+                    // 必须要先移动后塞入 保证最后一个节点能够被塞入
+                    curNode = curNode.next[curChar - 'a'];
+                    curNode.set.add(product);
                 }
             }
         }
@@ -55,11 +68,11 @@ public class Code1268 {
 
     class Node {
         Node[] next;
-        TreeMap<Character, List<String>> map;
+        TreeSet<String> set;
 
         Node() {
             next = new Node[26];
-            map = new TreeMap<>();
+            set = new TreeSet<>();
         }
     }
 }
