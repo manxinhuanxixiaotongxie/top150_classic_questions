@@ -1,5 +1,7 @@
 package leetcode75;
 
+import java.util.Arrays;
+
 /**
  * 给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数  。
  * <p>
@@ -60,10 +62,8 @@ public class Code072 {
 
     /**
      *
-     * 这个方法是对的
+     * 改动态规划
      *
-     * @param word1
-     * @param word2
      * @return
      */
     public int minDistance2(String text1, String text2) {
@@ -71,38 +71,81 @@ public class Code072 {
         char[] str2 = text2.toCharArray();
         if (str1.length == 0) return str2.length;
         if (str2.length == 0) return str1.length;
-        // 返回将字符串从text1转换成text2需要的最小操作数
-
-        int N1 = str1.length;
-        int N2 = str2.length;
-        int[][] dp = new int[N1][N2];
+        // 改成动态规划
+        int[][] dp = new int[str1.length][str2.length];
+        for (int i = 0; i < str1.length; i++) {
+            Arrays.fill(dp[i], Integer.MAX_VALUE);
+        }
+        // 左上角位置
         dp[0][0] = str1[0] == str2[0] ? 0 : 1;
         // 第一行
-        for (int j = 1; j < N2; j++) {
-            dp[0][j] = str1[0] == str2[j] ? j : dp[0][j - 1] + 1;
+        for (int c = 1; c < str2.length; c++) {
+            dp[0][c] = str1[0] == str2[c] ? c : dp[0][c - 1] + 1;
         }
         // 第一列
-        for (int i = 1; i < N1; i++) {
-            dp[i][0] = str1[i] == str2[0] ? i
-                    : dp[i - 1][0] + 1;
+        for (int r = 1; r < str1.length; r++) {
+            dp[r][0] = str1[r] == str2[0] ? r : dp[r - 1][0] + 1;
         }
-
-        // 从第一行第一列开始计算
+        // 普遍位置
         for (int index1 = 1; index1 < str1.length; index1++) {
             for (int index2 = 1; index2 < str2.length; index2++) {
-                // 普遍位置填充
                 if (str1[index1] == str2[index2]) {
-                    dp[index1][index2] = dp[index1 - 1][index2 - 1];
+                    dp[index1][index2] = Math.min(dp[index1][index2], dp[index1 - 1][index2 - 1]);
                 } else {
-                    // 不相等
-                    dp[index1][index2] = dp[index1 - 1][index2] + 1;
-                    dp[index1][index2] = Math.min(dp[index1][index2], dp[index1][index2 - 1] + 1);
                     dp[index1][index2] = Math.min(dp[index1][index2], dp[index1 - 1][index2 - 1] + 1);
+                    dp[index1][index2] = Math.min(dp[index1][index2], dp[index1][index2 - 1] + 1);
+                    dp[index1][index2] = Math.min(dp[index1][index2], dp[index1 - 1][index2] + 1);
+
                 }
             }
         }
-        return dp[N1 - 1][N2 - 1];
+        return dp[str1.length - 1][str2.length - 1];
     }
+
+    /**
+     * 空间压缩计算
+     * <p>
+     * 普遍位置依赖分析：依赖左上角 左边 上边位置
+     *
+     * @param text1
+     * @param text2
+     * @return
+     */
+    public int minDistance3(String text1, String text2) {
+        char[] str1 = text1.toCharArray();
+        char[] str2 = text2.toCharArray();
+        if (str1.length == 0) return str2.length;
+        if (str2.length == 0) return str1.length;
+        // 整合成一维数组
+        int[] dp = new int[str2.length];
+        // 先把一行位置填写了
+        dp[0] = str1[0] == str2[0] ? 0 : 1;
+        for (int c = 1; c < str2.length; c++) {
+            if (str1[0] == str2[c]) {
+                dp[c] = c;
+            } else {
+                dp[c] = dp[c - 1] + 1;
+            }
+        }
+        // 总共要循环str1这么多次
+        for (int index1 = 1; index1 < str1.length; index1++) {
+            int leftTop = dp[0];
+            dp[0] = str1[index1] == str2[0] ? index1 : dp[0] + 1;
+            for (int index2 = 1; index2 < str2.length; index2++) {
+                // 普遍位置
+                int temp = dp[index2];
+                if (str1[index1] == str2[index2]) {
+                    dp[index2] = leftTop;
+                } else {
+                    dp[index2] = Math.min(leftTop + 1, Math.min(dp[index2] + 1, dp[index2 - 1] + 1));
+                }
+                leftTop = temp;
+            }
+        }
+
+        return dp[str2.length - 1];
+    }
+
 
     public static void main(String[] args) {
         Code072 code = new Code072();

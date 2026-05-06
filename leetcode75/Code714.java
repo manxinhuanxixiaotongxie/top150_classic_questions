@@ -20,10 +20,12 @@ public class Code714 {
         } else {
             if (canSell) {
                 // 能够交易卖出
-                return Math.max(process(prices, fee, index + 1, true), process(prices, fee, index + 1, false) + prices[index] - fee);
+                return Math.max(process(prices, fee, index + 1, true),
+                        process(prices, fee, index + 1, false) + prices[index] - fee);
             } else {
                 // 能够操作买入
-                return Math.max(process(prices, fee, index + 1, false), process(prices, fee, index + 1, true) - prices[index]);
+                return Math.max(process(prices, fee, index + 1, false),
+                        process(prices, fee, index + 1, true) - prices[index]);
             }
         }
     }

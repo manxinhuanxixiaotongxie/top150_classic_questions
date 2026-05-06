@@ -38,7 +38,6 @@ public class Code875 {
         return right;
     }
 
-
     public boolean check(int[] piles, int k, int h) {
         // 检查在速度k下能不能在h小时吃完香蕉
         for (int i = 0; i < piles.length; i++) {
@@ -50,6 +49,7 @@ public class Code875 {
     }
 
     private boolean check2(int[] piles, int mid, int h) {
+        // 每个位置初始化一个
         int sum = piles.length;
         for (int pile : piles) {
             sum += (pile - 1) / mid;
@@ -58,5 +58,50 @@ public class Code875 {
             }
         }
         return true;
+    }
+
+
+    /**
+     * 闭区间写法
+     *
+     * @param piles
+     * @param h
+     * @return
+     */
+    public int minEatingSpeed2(int[] piles, int h) {
+        // 在h小时吃完所有香蕉的最小速度
+        // 二分查找
+        int N = piles.length;
+        // h必须要大于等于N
+        // 每堆香蕉至少要吃一个小时 不足一个小时 按照一个小时安排
+        // 如果 h = 20  N = 10 意味着 每堆平均可以分两个小时
+        // 实际是不需要这么长时间
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < N; i++) {
+            max = Math.max(max, piles[i]);
+        }
+        int left = 0;
+        int right = max;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (canFinish(piles, h, mid)) {  // 传mid（速度），不是piles[mid]
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return left;
+    }
+
+    // 以每小时mid的速度进行吃香蕉 能不能在h小时内吃完
+    public boolean canFinish(int[] piles, int h, int mid) {
+        for (int num : piles) {
+            h -= (num - 1) / mid + 1;
+            if (h < 0) {
+                return false;
+            }
+        }
+        return h >= 0;
     }
 }

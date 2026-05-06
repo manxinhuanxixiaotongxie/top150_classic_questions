@@ -4,6 +4,8 @@ public class Code790 {
     /**
      * 找规律
      * 2*n的矩阵
+     * <p>
+     * 超时
      *
      * @param n
      * @return
@@ -89,9 +91,9 @@ public class Code790 {
         // 第一种情况
         int ans = 0;
         // 第一种情况 一个竖线占据第一列
-        ans += process2(n - 1) % 1000000007;
+        ans = (ans + process2(n - 1)) % 1000000007;
         // 第二种情况 两个横线占据第一列与第二列
-        ans += process2(n - 2) % 1000000007;
+        ans = (ans + process2(n - 2)) % 1000000007;
 //        ans += process2(n - 3) * 2 % 1000000007;
 //        ans += process2(n - 4) * 2 % 1000000007;
 
@@ -110,7 +112,7 @@ public class Code790 {
         // 两个L 与1个横线交叉 n-4
         // 最多有多少个横线 n-3个横线
         for (int i = 0; i <= n - 3; i++) {
-            ans = (ans % 1000000007 + 2 * process2(i) % 1000000007) % 1000000007;
+            ans = (ans + 2 * process2(i)) % 1000000007;
         }
 
         /**
@@ -150,7 +152,7 @@ public class Code790 {
          * 3.7 两个L形状与n-3个横线占据前n列 2* process(0)种方法
          */
 
-        return ans % 1000000007;
+        return ans;
     }
 
     /**
@@ -193,10 +195,10 @@ public class Code790 {
         };
         long[][] fod = {{2}, {1}, {1}}; // f(2), f(1), f(0)
         long[][] res = matrixMulNum(base, n - 2);
-//        return (int) (res[0][0] * fod[0] % 1000000007 + res[0][1] * fod[1] % 1000000007 + res[0][2] * fod[2] % 1000000007) % 1000000007;、
+        return (int) ((((res[0][0] * fod[0][0]) % 1000000007) +
+                ((res[0][1] * fod[1][0]) % 1000000007) + ((res[0][2] * fod[2][0]) % 1000000007)) % 1000000007);
         // return (int) matrixMul(fod,res)[0][0];
-        // 这个写法也是错误的 为什么？
-        return (int) matrixMul(res,fod)[0][0];
+//        return (int) matrixMul(res,fod)[0][0];
     }
 
     // 数组的N次方
@@ -232,7 +234,7 @@ public class Code790 {
                     // 因为 res[i][j] += martrix1[i][k] * matrix2[k][j] % 1000000007
                     // 可能会导致 res[i][j] 超过 long 的范围
                     // 所以要把每一步的结果都对 1000000007 取模
-                    res[i][j] = (res[i][j] +  martrix1[i][k] * matrix2[k][j]) % 1000000007;
+                    res[i][j] = (res[i][j] + martrix1[i][k] * matrix2[k][j]) % 1000000007;
                 }
             }
         }

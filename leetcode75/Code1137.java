@@ -53,5 +53,51 @@ public class Code1137 {
         return ans;
     }
 
+    /**
+     * log(n)解法
+     * 利用矩阵快速幂
+     */
+    public int tribonacci4(int n) {
+        if (n == 0) return 0;
+        if (n == 1 || n == 2) return 1;
+        int[][] base = new int[][]{
+                {1, 1, 1},
+                {1, 0, 0},
+                {0, 1, 0}
+        };
 
+        // 求的是base的n-2次幂
+        int[][] found = new int[][]{
+                {1, 0, 0},
+                {0, 1, 0},
+                {0, 0, 1}
+        };
+        n = n - 2;
+        while (n != 0) {
+            if ((n & 1) != 0) {
+                // found * base
+                found = matrixMul(found, base);
+            }
+            // base * base
+            base = matrixMul(base, base);
+            n >>= 1;
+        }
+
+        return found[0][0] + found[0][1];
+    }
+
+    // 两个数组矩阵相乘
+    public int[][] matrixMul(int[][] mat1, int[][] mat2) {
+        // 第一个矩阵的列与第二个矩阵的行是相等的
+        int[][] ans = new int[mat1.length][mat2[0].length];
+        for (int r = 0; r < mat1.length; r++) {
+            for (int c = 0; c < mat2[0].length; c++) {
+                // 行列的计算方式
+                for (int k = 0; k < mat2[0].length; k++) {
+                    ans[r][c] += mat1[r][k] * mat2[k][c];
+                }
+            }
+        }
+        return ans;
+    }
 }

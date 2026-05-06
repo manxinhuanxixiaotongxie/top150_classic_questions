@@ -70,7 +70,8 @@ public class Code1143 {
         // 普遍位置依赖左边 上边 左上角的位置
         for (int i = 1; i < row; i++) {
             for (int j = 1; j < col; j++) {
-                dp[i][j] = s1[i] == s2[j] ? dp[i - 1][j - 1] + 1 : Math.max(dp[i - 1][j], Math.max(dp[i][j - 1], dp[i - 1][j - 1]));
+                dp[i][j] = s1[i] == s2[j] ? dp[i - 1][j - 1] + 1 :
+                        Math.max(dp[i - 1][j], Math.max(dp[i][j - 1], dp[i - 1][j - 1]));
             }
         }
 
@@ -87,32 +88,32 @@ public class Code1143 {
     public int longestCommonSubsequence3(String str1, String str2) {
         char[] s1 = str1.toCharArray();
         char[] s2 = str2.toCharArray();
+        // 数组整合成一维数组
         int[] dp = new int[s2.length];
         dp[0] = s1[0] == s2[0] ? 1 : 0;
-        // 普遍位置依赖左边 上边 左上角的位置
-        // 滚动更新数组
-        for (int i = 1; i < s2.length; i++) {
-            dp[i] = s1[0] == s2[i] ? 1 : dp[i - 1];
+        // 先把第一行给填了
+        for (int c = 1; c < s2.length; c++) {
+            dp[c] = s1[0] == s2[c] ? 1 : dp[c - 1];
         }
-        // 定义一个变量标记左上角
-        int leftTop = Integer.MIN_VALUE;
-        for (int i = 1; i < s1.length; i++) {
-            // 总共要遍历这么多次
-            leftTop = dp[0];
+        // 普遍位置
+        // 总共要循环s1次
+        for (int i = 1; i < str1.length(); i++) {
+            // 当前位置依赖的位置
+            // 上面位置 左边位置 左上角位置
+            // 使用一个临时变量标记左上角的位置
+            int leftTop = dp[0]; // 保存旧dp[0]，作为j=1时的左上角
             dp[0] = s1[i] == s2[0] ? 1 : dp[0];
-            for (int j = 1; j < dp.length; j++) {
+            for (int j = 1; j < str2.length(); j++) {
+                int temp = dp[j]; // 保存上方的值
                 if (s1[i] == s2[j]) {
-                    int temp = dp[j];
-                    dp[j] = 1 + leftTop;
-                    leftTop = temp;
+                    dp[j] = leftTop + 1;
                 } else {
-                    int temp = dp[j];
-                    dp[j] = Math.max(dp[j - 1], Math.max(dp[j], leftTop));
-                    leftTop = temp;
+                    dp[j] = Math.max(dp[j - 1], temp); // left vs up，leftTop(左上角)必然<=两者
                 }
+                leftTop = temp;
             }
         }
-
         return dp[s2.length - 1];
     }
+
 }
