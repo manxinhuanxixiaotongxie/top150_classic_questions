@@ -65,7 +65,7 @@ public class Code322 {
     }
 
     /**
-     * 四边形不等式技巧 能够剩下一阶
+     * 四边形不等式技巧 能够省下一阶
      *
      * @param coins
      * @param amount
