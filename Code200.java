@@ -1,5 +1,3 @@
-import java.awt.desktop.PreferencesEvent;
-
 /**
  * 岛屿的数量
  * <p>

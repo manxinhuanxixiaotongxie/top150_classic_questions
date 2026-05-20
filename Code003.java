@@ -1,5 +1,4 @@
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -8,7 +7,7 @@ import java.util.Set;
  */
 public class Code003 {
     public int lengthOfLongestSubstring(String s) {
-        if (s == null || s.length() == 0) {
+        if (s == null || s.isEmpty()) {
             return 0;
         }
         Set<Character> set = new HashSet<>();
