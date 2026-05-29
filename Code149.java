@@ -27,8 +27,12 @@ public class Code149 {
                 dx /= g;
                 dy /= g;
                 // 统一方向：让 dx > 0，或 dx == 0 时 dy > 0
-                if (dx < 0) { dx = -dx; dy = -dy; }
-                else if (dx == 0 && dy < 0) { dy = -dy; }
+                if (dx < 0) {
+                    dx = -dx;
+                    dy = -dy;
+                } else if (dx == 0 && dy < 0) {
+                    dy = -dy;
+                }
                 String key = dx + "/" + dy;
                 map.put(key, map.getOrDefault(key, 0) + 1);
             }

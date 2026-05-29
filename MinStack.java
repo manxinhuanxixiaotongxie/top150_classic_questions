@@ -2,8 +2,9 @@ import java.util.Stack;
 
 public class MinStack {
 
-    Stack<Integer> dataStack ;
-    Stack<Integer> minStack ;
+    Stack<Integer> dataStack;
+    Stack<Integer> minStack;
+
     public MinStack() {
         dataStack = new Stack<>();
         minStack = new Stack<>();
@@ -13,7 +14,7 @@ public class MinStack {
         if (minStack.isEmpty()) {
             dataStack.push(val);
             minStack.push(val);
-        }else {
+        } else {
             dataStack.push(val);
             minStack.push(Math.min(minStack.peek(), val));
         }

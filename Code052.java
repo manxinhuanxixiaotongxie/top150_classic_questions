@@ -60,7 +60,7 @@ public class Code052 {
         return process2(n, 0, 0, 0, 0);
     }
 
-    public int process2(int n,int r,int colLimit,int colLeftLimit,int colRightLimit) {
+    public int process2(int n, int r, int colLimit, int colLeftLimit, int colRightLimit) {
         if (r == n) {
             // 找到一种有效的放置方式
             return 1;
@@ -69,7 +69,7 @@ public class Code052 {
         // 求出当前行能够放置列位置
         int curColLimit = colLimit | colLeftLimit | colRightLimit;
         // 哪些位置可甜
-        curColLimit = ~curColLimit & ((1 << n) -1);
+        curColLimit = ~curColLimit & ((1 << n) - 1);
         // 再求最后一位的
         int ans = 0;
         while (curColLimit > 0) {

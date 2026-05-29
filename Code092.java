@@ -34,7 +34,7 @@ public class Code092 {
             // 换头
             begin.next = nextBegin;
             return reverse;
-        }else {
+        } else {
             // 不换头
             pre.next = reverse;
             begin.next = nextBegin;

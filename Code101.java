@@ -6,7 +6,7 @@ public class Code101 {
         return process(root.left, root.right);
     }
 
-    public boolean process(TreeNode root1,TreeNode root2) {
+    public boolean process(TreeNode root1, TreeNode root2) {
         if (root1 == null && root2 == null) {
             return true;
         }

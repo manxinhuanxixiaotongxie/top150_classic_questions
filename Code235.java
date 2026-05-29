@@ -26,20 +26,20 @@ public class Code235 {
                 ans = root;
             }
             return new Info(ans, findP, findQ);
-        }else if (leftInfo == null) {
+        } else if (leftInfo == null) {
             // 右树不为空
             boolean findP = root == p || rightInfo.findP;
-            boolean findQ = root == q  || rightInfo.findQ;
+            boolean findQ = root == q || rightInfo.findQ;
             TreeNode ans = null;
             if (rightInfo.ans != null) {
                 ans = rightInfo.ans;
-            }else if (findP && findQ) {
+            } else if (findP && findQ) {
                 ans = root;
             }
             return new Info(ans, findP, findQ);
-        }else if (rightInfo == null) {
+        } else if (rightInfo == null) {
             // 左树不为空
-            boolean findP = root == p  || leftInfo.findP;
+            boolean findP = root == p || leftInfo.findP;
             boolean findQ = root == q || leftInfo.findQ;
             TreeNode ans = null;
             if (leftInfo.ans != null) {
@@ -50,7 +50,7 @@ public class Code235 {
             return new Info(ans, findP, findQ);
         } else {
             // 左右树都不为空
-            boolean findP = root == p  || leftInfo.findP || rightInfo.findP;
+            boolean findP = root == p || leftInfo.findP || rightInfo.findP;
             boolean findQ = root == q || leftInfo.findQ || rightInfo.findQ;
             TreeNode ans = null;
             if (leftInfo.ans != null) {
@@ -68,6 +68,7 @@ public class Code235 {
         TreeNode ans;
         boolean findP;
         boolean findQ;
+
         Info(TreeNode ans, boolean findP, boolean findQ) {
             this.ans = ans;
             this.findP = findP;

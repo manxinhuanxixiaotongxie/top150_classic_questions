@@ -28,7 +28,7 @@ public class Code114 {
 
     /**
      * 使用morris遍历改写
-     *
+     * <p>
      * 注意：不能改右指针   使用左指针链接之后进行翻转
      *
      * @param root
@@ -43,7 +43,7 @@ public class Code114 {
                 }
                 pre = cur;
                 cur = cur.right;
-            }else {
+            } else {
                 TreeNode left = cur.left;
                 while (left.right != null && left.right != cur) {
                     left = left.right;
@@ -55,7 +55,7 @@ public class Code114 {
                     pre = cur;
                     left.right = cur;   // 设置回溯指针
                     cur = cur.left;     // 向左走
-                }else {
+                } else {
                     left.right = null;  // 断开回溯指针
                     cur = cur.right;
                 }

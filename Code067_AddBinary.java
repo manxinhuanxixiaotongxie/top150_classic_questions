@@ -82,7 +82,7 @@ public class Code067_AddBinary {
             add = sum / 2;
         }
         if (add == 1) {
-            sb.insert(0,1);
+            sb.insert(0, 1);
         }
         return String.valueOf(sb);
     }

@@ -107,7 +107,7 @@ public class Code098 {
                     left.right = cur;
                     cur = cur.left;
                     continue;
-                }else {
+                } else {
                     left.right = null;
                 }
             }

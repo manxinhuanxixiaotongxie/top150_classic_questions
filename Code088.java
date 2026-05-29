@@ -6,7 +6,7 @@ public class Code088 {
         while (r1 >= 0 && r2 >= 0) {
             if (nums1[r1] > nums2[r2]) {
                 nums1[r--] = nums1[r1--];
-            }else {
+            } else {
                 nums1[r--] = nums2[r2--];
             }
         }

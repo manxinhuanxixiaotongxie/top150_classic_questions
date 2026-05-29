@@ -85,7 +85,7 @@ public class Code062 {
         init();
         // r的范围是0-m-1  c的范围是0- n-1
         int[] dp = new int[n];
-        dp[n-1] = 1;
+        dp[n - 1] = 1;
         for (int c = n - 2; c >= 0; c--) {
             dp[c] += dp[c + 1];
         }

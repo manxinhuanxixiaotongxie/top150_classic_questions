@@ -19,13 +19,13 @@ public class Code025 {
         while (cur != null) {
             ListNode next = cur.next;
             ListNode temp = cur;
-            while (index < k-1 && next != null) {
+            while (index < k - 1 && next != null) {
                 index++;
                 cur = next;
                 next = next.next;
 
             }
-            if (index < k-1) {
+            if (index < k - 1) {
                 // 不足k个，不翻转
                 break;
             }

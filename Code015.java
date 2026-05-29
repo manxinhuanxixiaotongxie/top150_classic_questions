@@ -6,7 +6,8 @@ import java.util.Map;
 
 /**
  * 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]]
- * 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。请你返回所有和为 0 且不重复的三元组。
+ * 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。
+ * 请你返回所有和为 0 且不重复的三元组。
  * <p>
  * 注意：答案中不可以包含重复的三元组。
  *
@@ -90,6 +91,61 @@ public class Code015 {
                         temp.add(nums[right]);
                         ans.add(temp);
                     }
+                    right--;
+                }
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 不是下标
+     *
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> threeSum3(int[] nums) {
+        // 必须包含nums[i]位置
+        if (nums == null || nums.length < 3) {
+            return new ArrayList<>();
+        }
+        Arrays.sort(nums);
+        List<List<Integer>> ans = new ArrayList<>();
+        for (int i = 0; i < nums.length - 2; i++) {
+            // 数组有序 小优化
+            if (nums[i] > 0) {
+                break;
+            }
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            // 固定一个数
+            int firstNum = nums[i];
+            // 寻找接下来的两个数
+            // 寻找接下来的两个数的和是-first
+            // 两数之和
+            int target = -firstNum;
+            // 数组是有序的
+            int left = i + 1;
+            int right = nums.length - 1;
+            while (left < right) {
+                if (nums[left] + nums[right] == target) {
+                    List<Integer> temp = new ArrayList<>();
+                    temp.add(firstNum);
+                    temp.add(nums[left]);
+                    temp.add(nums[right]);
+                    ans.add(temp);
+                    left++;
+                    right--;
+                    while (left < right && nums[left] == nums[left - 1]) {
+                        left++;
+                    }
+                    while (left < right && nums[right] == nums[right + 1]) {
+                        right--;
+                    }
+                } else if (nums[left] + nums[right] < target) {
+                    left++;
+                } else {
                     right--;
                 }
             }

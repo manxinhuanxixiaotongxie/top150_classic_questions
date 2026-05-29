@@ -42,8 +42,8 @@ public class Code207 {
 
         for (int i = 0; i < prerequisites.length; i++) {
             graph.computeIfAbsent(prerequisites[i][1], _ -> new ArrayList<>()).add(prerequisites[i][0]);
-            inMap.put(prerequisites[i][0], inMap.getOrDefault(prerequisites[i][0],0) + 1);
-            inMap.put(prerequisites[i][1], inMap.getOrDefault(prerequisites[i][1],0));
+            inMap.put(prerequisites[i][0], inMap.getOrDefault(prerequisites[i][0], 0) + 1);
+            inMap.put(prerequisites[i][1], inMap.getOrDefault(prerequisites[i][1], 0));
         }
 
         Queue<Integer> queue = new LinkedList<>();

@@ -19,7 +19,7 @@ public class Code056 {
             if (intervals[i][0] <= arr[1]) {
                 // 合并
                 list.get(list.size() - 1)[1] = Math.max(intervals[i][1], arr[1]);
-            }else {
+            } else {
                 list.add(intervals[i]);
             }
         }

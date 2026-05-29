@@ -239,7 +239,6 @@ public class Code300 {
     }
 
 
-
     private int lowerBound2(List<Integer> g, int target) {
         int left = 0;
         int right = g.size() - 1;

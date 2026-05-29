@@ -34,7 +34,7 @@ public class Code215 {
         int left = l - 1;
         int right = r + 1;
         int i = l;
-        int index = l + (int) (Math.random() * ( r- l + 1));
+        int index = l + (int) (Math.random() * (r - l + 1));
         int val = nums[index];
         while (i < right) {
             if (nums[i] == val) {

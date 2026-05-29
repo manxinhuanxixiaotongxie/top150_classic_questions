@@ -15,7 +15,7 @@ public class Code003 {
         char[] str = s.toCharArray();
         int ans = 1;
         int end = 0;
-        for (int i = 0; i < str.length;i++) {
+        for (int i = 0; i < str.length; i++) {
             while (end < str.length && !set.contains(str[end])) {
                 set.add(str[end]);
                 end++;

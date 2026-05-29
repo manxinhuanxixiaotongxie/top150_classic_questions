@@ -58,7 +58,7 @@ public class Code080 {
                 if (cnt < 2) {
                     nums[ans++] = nums[index];
                 }
-                cnt ++;
+                cnt++;
                 index++;
             }
             cnt = 1;

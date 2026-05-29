@@ -20,7 +20,7 @@ public class Code017 {
 
     public List<String> letterCombinations(String digits) {
         List<String> ans = new ArrayList<>();
-        if (digits == null || digits.length() == 0) return ans;
+        if (digits == null || digits.isEmpty()) return ans;
         if (help[digits.charAt(0) - '0'] == null) return ans;
         process(digits.toCharArray(), digits.length(), 0, ans, "");
         return ans;
@@ -33,9 +33,10 @@ public class Code017 {
             char cur = digits[index];
             char[] choose = help[cur - '0'];
             for (int i = 0; i < choose.length; i++) {
-                path += choose[i];
-                process(digits, n, index + 1, res, path); // index+1 才是下一个数字位置，i 只是字母表下标
-                path = path.substring(0, path.length() - 1); // 回溯：去掉最后一个字符
+//                path += choose[i];
+//                process(digits, n, index + 1, res, path); // index+1 才是下一个数字位置，i 只是字母表下标
+//                path = path.substring(0, path.length() - 1); // 回溯：去掉最后一个字符
+                process(digits, n, index + 1, res, path + choose[i]);
             }
         }
     }

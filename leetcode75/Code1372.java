@@ -58,6 +58,7 @@ public class Code1372 {
      */
     // key: node, value: int[]{way=true的结果, way=false的结果}
     HashMap<TreeNode, int[]> cache = new HashMap<>();
+
     public int longestZigZag2(TreeNode root) {
         if (root == null || root.left == null && root.right == null) {
             return 0; // 如果树为空或只有一个节点，返回0

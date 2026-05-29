@@ -11,7 +11,7 @@ public class Code021 {
                 cur.next = list1;
                 cur = cur.next;
                 list1 = list1.next;
-            }else {
+            } else {
                 cur.next = list2;
                 cur = cur.next;
                 list2 = list2.next;

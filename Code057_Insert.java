@@ -94,7 +94,7 @@ public class Code057_Insert {
         int[][] intervals = {
                 {1, 5}
         };
-        int[] newInterval = {2,7};
+        int[] newInterval = {2, 7};
 
         System.out.println("----");
         int[][] ans2 = code.insert2(intervals, newInterval);

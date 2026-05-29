@@ -17,7 +17,7 @@ public class Code086 {
                 smallCur.next = cur;
                 smallCur = cur;
                 cur.next = null;
-            }else {
+            } else {
                 bigCur.next = cur;
                 bigCur = cur;
                 cur.next = null;

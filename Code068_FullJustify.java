@@ -127,12 +127,12 @@ public class Code068_FullJustify {
 
 
     static void main() {
-            String[] words = {"Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"};
-            int maxWidth = 20;
-            Code068_FullJustify code = new Code068_FullJustify();
-            List<String> ans = code.fullJustify2(words, maxWidth);
-            for (String s : ans) {
-                System.out.println(s);
-            }
+        String[] words = {"Science", "is", "what", "we", "understand", "well", "enough", "to", "explain", "to", "a", "computer.", "Art", "is", "everything", "else", "we", "do"};
+        int maxWidth = 20;
+        Code068_FullJustify code = new Code068_FullJustify();
+        List<String> ans = code.fullJustify2(words, maxWidth);
+        for (String s : ans) {
+            System.out.println(s);
+        }
     }
 }

@@ -16,9 +16,9 @@ import java.util.Queue;
  * 请你帮助重新规划路线方向，使每个城市都可以访问城市 0 。返回需要变更方向的最小路线数。
  * <p>
  * 题目数据 保证 每个城市在重新规划路线方向后都能到达城市 0 。
- *
+ * <p>
  * 提示：
- *
+ * <p>
  * 2 <= n <= 5 * 10^4
  * connections.length == n-1
  * connections[i].length == 2
@@ -84,6 +84,7 @@ public class Code1466 {
         }
         return graph;
     }
+
     public int minReorder2(int n, int[][] connections) {
         // 有向无环图 n个节点有n-1个边
         int ans = 0;

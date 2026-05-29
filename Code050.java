@@ -18,7 +18,7 @@ public class Code050 {
             base *= base;
             N = (N >> 1);
         }
-        return negative ? 1/ans : ans;
+        return negative ? 1 / ans : ans;
     }
 
     static void main() {

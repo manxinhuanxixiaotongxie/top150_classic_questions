@@ -30,6 +30,7 @@ public class Code452 {
 
     /**
      * 按照开始时间进行排序
+     *
      * @param points
      * @return
      */
@@ -46,7 +47,7 @@ public class Code452 {
                 // 为什么要用min 而不是max
                 // 问题在于：按开始时间排序时，重叠的气球需要找公共交集，箭必须射在交集内。所以 max 应该取 Math.min（交集右边界），而不是 Math.max。
                 max = Math.min(max, points[i][1]);
-            }else {
+            } else {
                 // 不能射爆
                 max = points[i][1];
             }

@@ -12,15 +12,28 @@ import java.util.Stack;
  */
 public class Code020 {
     /**
-     * 无法AC
+     * 方法1：计数器方案 —— 无法AC
+     * <p>
+     * 根本原因：用三个独立计数器只能保证"每种括号左右数量相等"，
+     * 但丢失了括号之间的"先后顺序/嵌套关系"，无法判断右括号是否匹配最近的同类左括号。
+     * <p>
+     * 反例1： "([)]"
+     * ( -> smallTimes=1
+     * [ -> biggerTimes=1
+     * ) -> smallTimes>0，放行，smallTimes=0
+     * ] -> biggerTimes>0，放行，biggerTimes=0
+     * 最终三个计数器都为0，方法1返回 true；但实际是交叉嵌套，正确答案是 false。
+     * <p>
+     * 反例2： "[({)}]" 同样会被误判为合法。
+     * <p>
+     * 结论：多种括号嵌套必须使用栈，栈天然记录"最近一个未匹配的左括号"，
+     * 遇到右括号时必须与栈顶匹配，从而同时校验数量 + 嵌套顺序。见方法2。
      *
-     * 计数器方案只能判断"每种括号数量是否匹配"，
-     * 无法判断"右括号是否对应最近的左括号"，这个问题必须用栈来解决。需要将方法1的逻辑改成栈方案：
      * @param s
      * @return
      */
     public boolean isValid(String s) {
-        if (s == null || s.length() == 0) {
+        if (s == null || s.isEmpty()) {
             return true;
         }
         if (s.length() % 2 == 1) {

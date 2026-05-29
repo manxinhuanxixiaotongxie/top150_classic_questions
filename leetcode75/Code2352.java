@@ -47,6 +47,7 @@ public class Code2352 {
 
     /**
      * 这个方法会忽略掉相同的行 比如的 第0行的数据是 3 2 1   第二行的数据也是3 2 1 这应该计算两次
+     *
      * @param grid
      * @return
      */
@@ -64,7 +65,7 @@ public class Code2352 {
             set.add(sb.toString());
         }
         // 列数据处理
-        for (int c = 0;c < col;c++) {
+        for (int c = 0; c < col; c++) {
             StringBuilder sb = new StringBuilder();
             for (int r = 0; r < row; r++) {
                 sb.append(grid[r][c]);
@@ -88,7 +89,7 @@ public class Code2352 {
             map.merge(sb.toString(), 1, Integer::sum);
         }
         // 列数据处理
-        for (int c = 0;c < col;c++) {
+        for (int c = 0; c < col; c++) {
             StringBuilder sb = new StringBuilder();
             for (int r = 0; r < row; r++) {
                 // 注意这里要加一个分隔符 不然 1 11 1 11 这种情况会被误认为是相同的
@@ -98,6 +99,6 @@ public class Code2352 {
         }
         return ans;
     }
-    
-    
+
+
 }

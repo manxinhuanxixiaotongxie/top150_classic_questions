@@ -19,6 +19,7 @@ public class Code138 {
         public int val;
         public Node next;
         public Node random;
+
         public Node(int _val) {
             val = _val;
         }

@@ -122,7 +122,7 @@ public class Code334 {
             if (upper == g.size()) {
                 // 没有任何数字比它大
                 g.add(num);
-            }else {
+            } else {
                 // 当前位置是大于等于num的位置 意味着当前位置能够取到的长度 一定可以更新 并且是最小值
                 g.set(upper, num);
             }

@@ -35,7 +35,7 @@ public class Code054 {
                 res.add(matrix[leftRow][i]);
             }
             // 右侧
-            for (int i = leftRow ; i < rightRow; i++) {
+            for (int i = leftRow; i < rightRow; i++) {
                 res.add(matrix[i][rightCol]);
             }
             // 下册

@@ -42,14 +42,13 @@ public class Code082_DeleteDuplicates {
                 while (cur != null && cur.next != null && cur.next.val == val) {
                     cur.next = cur.next.next;
                 }
-            }else {
+            } else {
                 cur = cur.next;
             }
 
         }
         return dummy.next;
     }
-
 
 
 }

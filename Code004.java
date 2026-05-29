@@ -6,7 +6,6 @@ public class Code004 {
     /**
      * 暴力解法 双指针
      *
-     *
      * @param nums1
      * @param nums2
      * @return
@@ -55,7 +54,7 @@ public class Code004 {
 
     /**
      * 从双指针到二分
-     *
+     * <p>
      * 由于a和b是有序数组 i越小
      *
      * @param nums1

@@ -25,20 +25,18 @@ public class Code069_MySqrt {
         if (x == 0 || x == 1) {
             return x;
         }
-       int left = 0;
+        int left = 0;
         int right = x >> 1;
         while (left <= right) {
             int mid = left + ((right - left) >> 1);
-            if ((long)mid * mid <= x) {
+            if ((long) mid * mid <= x) {
                 left = mid + 1;
-            }else {
+            } else {
                 right = mid - 1;
             }
         }
-        return left -1 ;
+        return left - 1;
     }
-
-
 
 
     public static void main(String[] args) {

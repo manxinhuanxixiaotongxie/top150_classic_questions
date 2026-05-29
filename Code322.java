@@ -92,7 +92,7 @@ public class Code322 {
                 if (rest - coins[index] >= 0 && dp[index][rest - coins[index]] != Integer.MAX_VALUE) {
                     dp[index][rest] = Math.min(dp[index][rest], dp[index][rest - coins[index]] + 1);
                 }
-                dp[index][rest]  = Math.min(dp[index][rest], dp[index + 1][rest]);
+                dp[index][rest] = Math.min(dp[index][rest], dp[index + 1][rest]);
             }
 
         }

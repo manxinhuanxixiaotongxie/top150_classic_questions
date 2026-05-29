@@ -4,7 +4,7 @@
  */
 public class Code061 {
     public ListNode rotateRight(ListNode head, int k) {
-        if(head == null || head.next == null) {
+        if (head == null || head.next == null) {
             return head;
         }
         // 求链表的长度

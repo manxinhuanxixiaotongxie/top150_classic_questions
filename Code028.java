@@ -10,6 +10,8 @@ public class Code028 {
 
     /**
      *
+     * kmp算法：
+     *
      * @param haystack
      * @param needle
      * @return
@@ -44,7 +46,7 @@ public class Code028 {
             int x = i - 1;
             while (next[x] != -1) {
                 // 这里始终是needle[i-1]和needle[next[x]]比较，因为next[x]是i-1之前的最长公共前缀的长度，所以needle[next[x]]就是最长公共前缀的最后一个字符
-                if (needle[i-1] == needle[next[x]]) {
+                if (needle[i - 1] == needle[next[x]]) {
                     next[i] = next[x] + 1;
                     break;
                 } else {

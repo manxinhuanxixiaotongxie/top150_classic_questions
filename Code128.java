@@ -23,7 +23,7 @@ public class Code128 {
          *
          */
         for (int num : set) {
-            if (set.contains(num - 1) ) {
+            if (set.contains(num - 1)) {
                 continue;
             }
             int cur = 1;

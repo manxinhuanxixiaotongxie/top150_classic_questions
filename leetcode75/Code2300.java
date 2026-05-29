@@ -8,9 +8,9 @@ import java.util.Arrays;
  * 同时给你一个整数 success 。一个咒语和药水的能量强度 相乘 如果 大于等于 success ，那么它们视为一对 成功 的组合。
  * <p>
  * 请你返回一个长度为 n 的整数数组 pairs，其中 pairs[i] 是能跟第 i 个咒语成功组合的 药水 数目。
- *
+ * <p>
  * 提示：
- *
+ * <p>
  * n == spells.length
  * m == potions.length
  * 1 <= n, m <= 10^5
@@ -43,7 +43,7 @@ public class Code2300 {
 //            if (position[mid] < div) {
             if (position[mid] <= div) {
                 left = mid + 1;
-            }else {
+            } else {
                 right = mid - 1;
             }
         }

@@ -120,8 +120,9 @@ public class Code120_MinimumTotal {
      * 理由：
      * 1.可能存在重复的数字 干扰判断
      * 2.后面的数字的大小无法预测
-     *
+     * <p>
      * 只能暴力枚举下一层所有情形 选择最小的
+     *
      * @param triangle
      * @return
      */

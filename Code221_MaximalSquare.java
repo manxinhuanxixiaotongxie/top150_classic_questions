@@ -25,7 +25,6 @@ public class Code221_MaximalSquare {
     }
 
 
-
     public int maximalSquare2(char[][] matrix) {
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
             return 0;
